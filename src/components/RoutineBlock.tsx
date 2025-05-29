@@ -20,73 +20,69 @@ const RoutineBlock: React.FC<RoutineBlockProps> = ({ routine, onClick, onDelete 
   // Określ wysokość bloku na podstawie czasu trwania (każde 15 minut = 1rem wysokości)
   const heightInRem = Math.max(2, routine.duration / 15);
 
-  // Funkcja zastępująca standardowe kolory gradientami dla lepszego wyglądu
-  const getEnhancedColor = (baseColor: string) => {
-    if (baseColor.includes('yellow')) {
-      return 'bg-gradient-to-br from-yellow-100 to-amber-200 dark:from-yellow-900/30 dark:to-amber-900/20 border border-yellow-200 dark:border-yellow-900/60';
-    } else if (baseColor.includes('green')) {
-      return 'bg-gradient-to-br from-green-100 to-emerald-200 dark:from-green-900/30 dark:to-emerald-900/20 border border-green-200 dark:border-green-900/60';
-    } else if (baseColor.includes('blue')) {
-      return 'bg-gradient-to-br from-blue-100 to-sky-200 dark:from-blue-900/30 dark:to-sky-900/20 border border-blue-200 dark:border-blue-900/60';
-    } else if (baseColor.includes('indigo')) {
-      return 'bg-gradient-to-br from-indigo-100 to-violet-200 dark:from-indigo-900/30 dark:to-violet-900/20 border border-indigo-200 dark:border-indigo-900/60';
-    } else if (baseColor.includes('purple')) {
-      return 'bg-gradient-to-br from-purple-100 to-fuchsia-200 dark:from-purple-900/30 dark:to-fuchsia-900/20 border border-purple-200 dark:border-purple-900/60';
-    } else if (baseColor.includes('pink')) {
-      return 'bg-gradient-to-br from-pink-100 to-rose-200 dark:from-pink-900/30 dark:to-rose-900/20 border border-pink-200 dark:border-pink-900/60';
-    } else if (baseColor.includes('red')) {
-      return 'bg-gradient-to-br from-red-100 to-rose-200 dark:from-red-900/30 dark:to-rose-900/20 border border-red-200 dark:border-red-900/60';
-    } else if (baseColor.includes('orange')) {
-      return 'bg-gradient-to-br from-orange-100 to-amber-200 dark:from-orange-900/30 dark:to-amber-900/20 border border-orange-200 dark:border-orange-900/60';
-    } else if (baseColor.includes('gray')) {
-      return 'bg-gradient-to-br from-gray-100 to-slate-200 dark:from-gray-800 dark:to-gray-900 border border-gray-200 dark:border-gray-800/60';
-    }
+  // Uzyskaj kolor w stylu iOS Health/Fitness
+  const getIOSStyleColor = (baseColor: string) => {
+    // Usuwamy tailwind classes, wyciągamy podstawowy kolor
+    const colorName = baseColor.match(/(yellow|green|blue|indigo|purple|pink|red|orange|gray)/)?.[0] || 'blue';
     
-    // Domyślny niebieski
-    return 'bg-gradient-to-br from-blue-100 to-sky-200 dark:from-blue-900/30 dark:to-sky-900/20 border border-blue-200 dark:border-blue-900/60';
+    // Mapowanie kolorów na paletę w stylu iOS
+    const colorMap: Record<string, string> = {
+      yellow: 'bg-amber-400/10 border-amber-400/20 dark:bg-amber-400/15 dark:border-amber-400/30',
+      green: 'bg-green-400/10 border-green-400/20 dark:bg-green-400/15 dark:border-green-400/30',
+      blue: 'bg-blue-400/10 border-blue-400/20 dark:bg-blue-400/15 dark:border-blue-400/30',
+      indigo: 'bg-indigo-400/10 border-indigo-400/20 dark:bg-indigo-400/15 dark:border-indigo-400/30',
+      purple: 'bg-purple-400/10 border-purple-400/20 dark:bg-purple-400/15 dark:border-purple-400/30',
+      pink: 'bg-pink-400/10 border-pink-400/20 dark:bg-pink-400/15 dark:border-pink-400/30',
+      red: 'bg-red-400/10 border-red-400/20 dark:bg-red-400/15 dark:border-red-400/30',
+      orange: 'bg-orange-400/10 border-orange-400/20 dark:bg-orange-400/15 dark:border-orange-400/30',
+      gray: 'bg-neutral-400/10 border-neutral-400/20 dark:bg-neutral-400/15 dark:border-neutral-400/30',
+    };
+    
+    return colorMap[colorName] || 'bg-blue-400/10 border-blue-400/20 dark:bg-blue-400/15 dark:border-blue-400/30';
   };
 
   return (
     <div
-      className={`relative rounded-md p-2 shadow-sm cursor-pointer transition-all duration-200 
-        hover:shadow-md hover:translate-x-0.5 hover:-translate-y-0.5 
-        ${getEnhancedColor(routine.color || 'bg-blue-100')}`}
+      className={`rounded-xl backdrop-blur-md ${getIOSStyleColor(routine.color || '')} 
+        shadow-sm border p-3 cursor-pointer transition-all duration-200 
+        hover:bg-white/20 dark:hover:bg-white/10`}
       style={{ height: `${heightInRem}rem` }}
       onClick={handleClick}
     >
       <div className="flex items-start justify-between">
         <div className="flex items-center space-x-2">
-          <span className="text-xl filter drop-shadow-sm" role="img" aria-label={routine.name}>
+          <span className="text-xl" role="img" aria-label={routine.name}>
             {routine.icon}
           </span>
           <div>
-            <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100">
+            <h3 className="font-medium text-sm text-black dark:text-white">
               {routine.name}
             </h3>
-            <p className="text-xs text-gray-700 dark:text-gray-400">
+            <p className="text-xs text-neutral-600 dark:text-neutral-400">
               {routine.time} ({routine.duration} min)
             </p>
           </div>
         </div>
         <button
           onClick={handleDelete}
-          className="p-1 text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 
-            transition-colors hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full"
+          className="w-7 h-7 flex items-center justify-center rounded-full text-neutral-500 
+            hover:text-red-500 dark:text-neutral-400 dark:hover:text-red-400 
+            transition-colors hover:bg-white/20 dark:hover:bg-white/10"
           aria-label="Usuń rytuał"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 6L6 18M6 6l12 12" />
           </svg>
         </button>
       </div>
       
       {routine.notes && (
-        <p className="mt-1 text-xs text-gray-700 dark:text-gray-400 line-clamp-2 overflow-hidden">
+        <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2 overflow-hidden">
           {routine.notes}
         </p>
       )}
       
-      <div className="absolute bottom-1 right-2 text-xs text-gray-600 dark:text-gray-500 font-medium">
+      <div className="absolute bottom-2 right-3 text-[10px] font-medium text-neutral-500 dark:text-neutral-500">
         {routine.repeat === 'daily' && 'Codziennie'}
         {routine.repeat === 'weekday' && 'Dni robocze'}
         {routine.repeat === 'weekend' && 'Weekendy'}

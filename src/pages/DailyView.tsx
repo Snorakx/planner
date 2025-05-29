@@ -133,40 +133,40 @@ const DailyView: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-gray-50 dark:bg-gray-950 dark:bg-gradient-to-b dark:from-gray-950 dark:to-black">
-      {/* Nagłówek */}
-      <div className="bg-white dark:bg-gray-900 dark:bg-gradient-to-r dark:from-gray-900 dark:to-gray-850 p-4 shadow-sm border-b border-gray-200 dark:border-gray-800">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            <span role="img" aria-label="Daily Structure" className="drop-shadow-sm">📅</span> 
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-800 dark:from-white dark:to-gray-200">
-              Struktura Dnia
-            </span>
+    <div className="min-h-screen bg-neutral-50 dark:bg-zinc-950">
+      {/* Header */}
+      <div className="pt-6 pb-4 px-6 sticky top-0 z-10 bg-neutral-50/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-neutral-200/50 dark:border-white/5">
+        <div className="flex items-center justify-between mb-3">
+          <h1 className="text-2xl font-semibold text-black dark:text-white tracking-tight">
+            Rytm Dnia
           </h1>
+          
           <div className="flex space-x-2">
             <button 
               onClick={() => handleDateChange(-1)}
-              className="p-2 rounded-md text-gray-600 hover:bg-gray-100 dark:text-gray-300 
-                dark:hover:bg-gray-700/70 transition-colors"
+              className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-600 hover:bg-white/10 dark:text-neutral-300 
+                dark:hover:bg-white/10 transition-colors"
+              aria-label="Poprzedni dzień"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6" />
               </svg>
             </button>
             <button 
               onClick={() => setSelectedDate(new Date())}
-              className="px-3 py-1 rounded-md text-sm bg-blue-100 text-blue-800 hover:bg-blue-200 
-                dark:bg-blue-900/40 dark:text-blue-300 dark:hover:bg-blue-800/50 transition-colors shadow-sm"
+              className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-blue-500 text-white hover:bg-blue-600 
+                dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors shadow-sm"
             >
               Dzisiaj
             </button>
             <button 
               onClick={() => handleDateChange(1)}
-              className="p-2 rounded-md text-gray-600 hover:bg-gray-100 dark:text-gray-300 
-                dark:hover:bg-gray-700/70 transition-colors"
+              className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-600 hover:bg-white/10 dark:text-neutral-300 
+                dark:hover:bg-white/10 transition-colors"
+              aria-label="Następny dzień"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18l6-6-6-6" />
               </svg>
             </button>
           </div>
@@ -174,12 +174,9 @@ const DailyView: React.FC = () => {
         
         <div className="flex flex-col sm:flex-row sm:items-center justify-between">
           <div className="mb-2 sm:mb-0">
-            <h2 className="text-lg text-gray-700 dark:text-gray-300 capitalize">
+            <h2 className="text-base text-neutral-600 dark:text-neutral-400 capitalize">
               {formattedDate}
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Zaplanuj swój dzień z przewidywalną strukturą
-            </p>
           </div>
           
           <div className="flex space-x-2">
@@ -188,23 +185,23 @@ const DailyView: React.FC = () => {
                 setCurrentRoutine(undefined);
                 setShowRoutineForm(true);
               }}
-              className="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 
-                dark:bg-blue-500 dark:hover:bg-blue-600 text-sm flex items-center transition-colors shadow-sm"
+              className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/10 
+                text-black dark:text-white hover:bg-white/20 dark:hover:bg-white/20 transition-colors shadow-sm flex items-center"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
+                <path d="M12 5v14M5 12h14" />
               </svg>
-              Dodaj rytuał
+              Nowy rytuał
             </button>
             
             {suggestedRoutines.length > 0 && (
               <button
                 onClick={() => setShowSuggestions(!showSuggestions)}
-                className="px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 
-                  dark:bg-purple-500 dark:hover:bg-purple-600 text-sm flex items-center transition-colors shadow-sm"
+                className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/10 backdrop-blur-md border border-white/10
+                  text-black dark:text-white hover:bg-white/20 dark:hover:bg-white/20 transition-colors shadow-sm flex items-center"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                 </svg>
                 Sugestie ({suggestedRoutines.length})
               </button>
@@ -215,10 +212,10 @@ const DailyView: React.FC = () => {
       
       {/* Modal formularza rytuału */}
       {showRoutineForm && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-900 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-850 
-            rounded-lg shadow-xl max-w-lg w-full p-6 animate-fadeIn">
-            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl rounded-3xl shadow-xl 
+            max-w-lg w-full p-6 animate-fadeIn border border-white/20 dark:border-white/10">
+            <h2 className="text-xl font-semibold mb-4 text-black dark:text-white">
               {currentRoutine ? 'Edytuj rytuał' : 'Nowy rytuał'}
             </h2>
             <RoutineForm 
@@ -235,25 +232,26 @@ const DailyView: React.FC = () => {
       
       {/* Modal sugestii rytuałów */}
       {showSuggestions && suggestedRoutines.length > 0 && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-900 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-850 
-            rounded-lg shadow-xl max-w-lg w-full p-6 animate-fadeIn">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl rounded-3xl shadow-xl 
+            max-w-lg w-full p-6 animate-fadeIn border border-white/20 dark:border-white/10">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+              <h2 className="text-xl font-semibold text-black dark:text-white">
                 Sugerowane rytuały
               </h2>
               <button 
                 onClick={() => setShowSuggestions(false)}
-                className="p-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 
-                  hover:bg-gray-100 dark:hover:bg-gray-700/50 rounded-full"
+                className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-600 hover:bg-white/10 
+                  dark:text-neutral-300 dark:hover:bg-white/10 transition-colors"
+                aria-label="Zamknij"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               </button>
             </div>
             
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
               Na podstawie Twoich wzorców aktywności, sugerujemy następujące rytuały do dodania:
             </p>
             
@@ -261,25 +259,26 @@ const DailyView: React.FC = () => {
               {suggestedRoutines.map(routine => (
                 <div 
                   key={routine.id} 
-                  className={`p-3 rounded-md ${routine.color} dark:border dark:border-opacity-30 transition-transform hover:scale-[1.01]`}
+                  className="p-4 rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-sm border border-white/10 
+                    transition-all duration-200 hover:bg-white/20 dark:hover:bg-white/10"
                 >
                   <div className="flex justify-between items-start">
                     <div className="flex items-start space-x-3">
-                      <span className="text-2xl drop-shadow-sm" role="img" aria-label={routine.name}>
+                      <span className="text-2xl" role="img" aria-label={routine.name}>
                         {routine.icon}
                       </span>
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">
+                        <h3 className="font-medium text-black dark:text-white">
                           {routine.name}
                         </h3>
-                        <p className="text-sm text-gray-700 dark:text-gray-300">
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
                           {routine.time} ({routine.duration} min) • 
                           {routine.repeat === 'daily' && ' Codziennie'}
                           {routine.repeat === 'weekday' && ' Dni robocze'}
                           {routine.repeat === 'weekend' && ' Weekendy'}
                         </p>
                         {routine.notes && (
-                          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                          <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-1">
                             {routine.notes}
                           </p>
                         )}
@@ -287,8 +286,8 @@ const DailyView: React.FC = () => {
                     </div>
                     <button
                       onClick={() => handleAddSuggestion(routine)}
-                      className="px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 
-                        dark:bg-blue-500 dark:hover:bg-blue-600 shadow-sm transition-colors"
+                      className="px-3 py-1.5 bg-blue-500 text-white text-xs rounded-full hover:bg-blue-600 
+                        shadow-sm transition-colors"
                     >
                       Dodaj
                     </button>
@@ -300,40 +299,77 @@ const DailyView: React.FC = () => {
         </div>
       )}
       
-      {/* Główna zawartość - oś czasu */}
-      <div className="flex-1 overflow-hidden p-4 dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900">
-        {timeSlots.length > 0 ? (
-          <DailyTimeline
-            timeSlots={timeSlots}
-            blocks={timelineBlocks}
-            onRoutineClick={handleRoutineClick}
-            onTaskClick={handleTaskClick}
-            onRoutineDelete={handleDeleteRoutine}
-            currentTime={currentTime}
-          />
-        ) : (
-          <div className="flex justify-center items-center h-full">
-            <p className="text-gray-500 dark:text-gray-400">Ładowanie struktury dnia...</p>
+      {/* Main Content */}
+      <div className="px-4 py-4">
+        <div className="max-w-4xl mx-auto">
+          {/* Sekcja podsumowania */}
+          <div className="mb-6 rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-inner border border-white/10 overflow-hidden">
+            <div className="p-5">
+              <h3 className="text-lg font-semibold text-black dark:text-white mb-1">Dzisiejszy plan</h3>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                Stałe rytuały zmniejszają zmęczenie decyzyjne i zwiększają przewidywalność dnia.
+              </p>
+              
+              {/* Pasek postępu dnia */}
+              <div className="mt-4 pt-2">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs text-neutral-500 dark:text-neutral-500">00:00</span>
+                  <span className="text-xs text-neutral-500 dark:text-neutral-500">24:00</span>
+                </div>
+                <div className="h-2.5 bg-neutral-200 dark:bg-neutral-800 rounded-full overflow-hidden">
+                  {currentTime && (
+                    <div 
+                      className="h-full bg-blue-500 dark:bg-blue-500 transition-all duration-300"
+                      style={{ 
+                        width: `${Math.min(
+                          (parseInt(currentTime.split(':')[0]) * 60 + parseInt(currentTime.split(':')[1])) / (24 * 60) * 100, 
+                          100
+                        )}%` 
+                      }}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
-        )}
-      </div>
-      
-      {/* Panel informacyjny */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 
-        p-3 border-t border-blue-100 dark:border-blue-900/50 shadow-inner">
-        <div className="flex items-start space-x-3">
-          <div className="bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-800 dark:to-blue-700 
-            rounded-full p-2 shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 dark:text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+          
+          {/* Oś czasu */}
+          <div className="rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-inner border border-white/10 overflow-hidden">
+            {timeSlots.length > 0 ? (
+              <DailyTimeline
+                timeSlots={timeSlots}
+                blocks={timelineBlocks}
+                onRoutineClick={handleRoutineClick}
+                onTaskClick={handleTaskClick}
+                onRoutineDelete={handleDeleteRoutine}
+                currentTime={currentTime}
+              />
+            ) : (
+              <div className="flex justify-center items-center h-40">
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+              </div>
+            )}
           </div>
-          <div>
-            <h3 className="font-medium text-blue-800 dark:text-blue-300 text-sm">Wskazówka</h3>
-            <p className="text-xs text-blue-700 dark:text-blue-400 mt-1 leading-relaxed">
-              Stałe rytuały zmniejszają zmęczenie decyzyjne i zwiększają przewidywalność dnia.
-              Spróbuj ustalić 3-4 stałe punkty, które będą kotwicami dla Twojej uwagi.
-            </p>
+          
+          {/* Sekcja wskazówek */}
+          <div className="mt-6 rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-inner border border-white/10 overflow-hidden">
+            <div className="p-5">
+              <div className="flex items-start space-x-4">
+                <div className="bg-blue-500/10 dark:bg-blue-500/20 rounded-full p-2.5 flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 16v-4M12 8h.01" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-medium text-black dark:text-white text-base mb-1">Wskazówka</h3>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    Spróbuj ustalić 3-4 stałe punkty w ciągu dnia, które będą kotwicami dla Twojej uwagi.
+                    Regularne przerwy pomiędzy zadaniami pozwolą zachować lepszą koncentrację.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

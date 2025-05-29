@@ -50,18 +50,18 @@ const DailyTimeline: React.FC<DailyTimelineProps> = ({
   const currentTimeIndex = currentTime ? getTimeIndex(currentTime) : -1;
 
   return (
-    <div className="relative w-full overflow-y-auto h-[calc(100vh-180px)] pr-2 rounded-lg">
-      <div className="grid grid-cols-[80px_1fr] gap-2">
+    <div className="relative w-full h-[calc(100vh-280px)] overflow-auto">
+      <div className="grid grid-cols-[70px_1fr] gap-2">
         {/* Lewa kolumna z godzinami */}
         <div className="flex flex-col sticky left-0 z-10">
           {timeSlots.map((slot, index) => (
             <div 
               key={`time-${index}`}
               className={`
-                flex items-center justify-end pr-2 h-12
+                flex items-center justify-end pr-3 h-14
                 ${slot.isHalfHour 
-                  ? 'text-xs text-gray-400 dark:text-gray-500' 
-                  : 'text-sm font-medium text-gray-700 dark:text-gray-300'}
+                  ? 'text-xs text-neutral-400 dark:text-neutral-500 font-medium' 
+                  : 'text-sm font-medium text-neutral-600 dark:text-neutral-300'}
               `}
             >
               {slot.time}
@@ -70,21 +70,19 @@ const DailyTimeline: React.FC<DailyTimelineProps> = ({
         </div>
 
         {/* Prawa kolumna z blokami */}
-        <div className="relative flex flex-col flex-1 bg-gray-50/60 dark:bg-gray-900/80 backdrop-blur-sm rounded-lg shadow-inner">
+        <div className="relative flex flex-col flex-1">
           {/* Linie czasowe */}
           {timeSlots.map((slot, index) => (
             <div 
               key={`slot-${index}`}
               className={`
-                relative h-12 border-t dark:bg-opacity-50
+                relative h-14 border-t
                 ${slot.isHalfHour 
-                  ? 'border-gray-200 dark:border-gray-800/60' 
-                  : 'border-t-2 border-gray-300 dark:border-gray-700'}
+                  ? 'border-neutral-200/30 dark:border-neutral-700/30' 
+                  : 'border-neutral-200/50 dark:border-neutral-700/50'}
                 ${currentTimeIndex === index 
-                  ? 'bg-gradient-to-r from-yellow-50/80 to-yellow-50/20 dark:from-amber-900/20 dark:to-transparent' 
-                  : index % 4 === 0 
-                    ? 'bg-gray-100/40 dark:bg-gray-850/40' 
-                    : ''}
+                  ? 'bg-blue-50/20 dark:bg-blue-900/10' 
+                  : ''}
                 transition-colors duration-150
               `}
             >
@@ -92,7 +90,7 @@ const DailyTimeline: React.FC<DailyTimelineProps> = ({
               {blocksByTimeIndex[index]?.map((block) => (
                 <div 
                   key={`block-${block.id}`}
-                  className="absolute left-0 right-0 z-10"
+                  className="absolute left-3 right-3 z-10"
                   style={{
                     top: '4px',
                   }}
@@ -105,26 +103,22 @@ const DailyTimeline: React.FC<DailyTimelineProps> = ({
                     />
                   ) : (
                     <div 
-                      className={`
-                        rounded-md p-2 shadow-sm cursor-pointer 
-                        transition-all hover:shadow-md hover:translate-x-0.5 hover:-translate-y-0.5
-                        ${block.color || 'bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700'}
-                        dark:border dark:border-gray-800/50
-                      `}
+                      className="rounded-xl backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/10 shadow-sm 
+                        p-3 cursor-pointer transition-all duration-200 hover:bg-white/20 dark:hover:bg-white/10"
                       onClick={() => onTaskClick(block.data as Task)}
-                      style={{ minHeight: '2rem' }}
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="font-medium text-sm text-gray-900 dark:text-white">
+                          <h3 className="font-medium text-sm text-black dark:text-white">
                             {block.title}
                           </h3>
-                          <p className="text-xs text-gray-600 dark:text-gray-300">
+                          <p className="text-xs text-neutral-600 dark:text-neutral-400">
                             {block.startTime} - {block.endTime}
                           </p>
                         </div>
                         {block.data.focus && (
-                          <span className="text-red-500 dark:text-red-400 text-xs px-1.5 py-0.5 bg-red-100 dark:bg-red-900/50 rounded-full border border-red-200 dark:border-red-800">
+                          <span className="text-xs px-2 py-0.5 bg-red-500/10 dark:bg-red-500/20 
+                            text-red-600 dark:text-red-400 rounded-full border border-red-500/20">
                             Priorytet
                           </span>
                         )}
@@ -139,12 +133,12 @@ const DailyTimeline: React.FC<DailyTimelineProps> = ({
           {/* Wskaźnik obecnego czasu */}
           {currentTimeIndex >= 0 && (
             <div 
-              className="absolute left-0 right-0 border-t-2 border-red-500 dark:border-red-400 z-20 pointer-events-none"
+              className="absolute left-0 right-0 border-t-2 border-blue-500 dark:border-blue-400 z-20 pointer-events-none"
               style={{ 
-                top: `${currentTimeIndex * 48 + 24}px`,
+                top: `${currentTimeIndex * 56 + 28}px`,
               }}
             >
-              <div className="absolute -top-2 -left-2 w-4 h-4 rounded-full bg-red-500 dark:bg-red-400 shadow-lg shadow-red-500/30 dark:shadow-red-600/40 animate-pulse"></div>
+              <div className="absolute -top-[5px] -left-1 w-[10px] h-[10px] rounded-full bg-blue-500 dark:bg-blue-400 shadow-md"></div>
             </div>
           )}
         </div>

@@ -11,52 +11,52 @@ interface RoutineFormProps {
 // Predefiniowane ikony do wyboru
 const ICONS = ['☀️', '🍽️', '🧘', '💤', '📝', '📚', '💻', '🏃', '🧹', '🍲', '🚿', '📱'];
 
-// Predefiniowane kolory do wyboru z nazwami i wartościami gradientów
+// Predefiniowane kolory do wyboru z nazwami i wartościami w stylu iOS
 const COLORS = [
   { 
     label: 'Żółty', 
     value: 'bg-yellow-100 dark:bg-yellow-900/30',
-    preview: 'bg-gradient-to-br from-yellow-100 to-amber-200 dark:from-yellow-900/30 dark:to-amber-900/20'
+    preview: 'bg-amber-400/20 dark:bg-amber-400/30'
   },
   { 
     label: 'Zielony', 
     value: 'bg-green-100 dark:bg-green-900/30',
-    preview: 'bg-gradient-to-br from-green-100 to-emerald-200 dark:from-green-900/30 dark:to-emerald-900/20'
+    preview: 'bg-green-400/20 dark:bg-green-400/30'
   },
   { 
     label: 'Niebieski', 
     value: 'bg-blue-100 dark:bg-blue-900/30',
-    preview: 'bg-gradient-to-br from-blue-100 to-sky-200 dark:from-blue-900/30 dark:to-sky-900/20'
+    preview: 'bg-blue-400/20 dark:bg-blue-400/30'
   },
   { 
     label: 'Indygo', 
     value: 'bg-indigo-100 dark:bg-indigo-900/30',
-    preview: 'bg-gradient-to-br from-indigo-100 to-violet-200 dark:from-indigo-900/30 dark:to-violet-900/20'
+    preview: 'bg-indigo-400/20 dark:bg-indigo-400/30'
   },
   { 
     label: 'Fioletowy', 
     value: 'bg-purple-100 dark:bg-purple-900/30',
-    preview: 'bg-gradient-to-br from-purple-100 to-fuchsia-200 dark:from-purple-900/30 dark:to-fuchsia-900/20'
+    preview: 'bg-purple-400/20 dark:bg-purple-400/30'
   },
   { 
     label: 'Różowy', 
     value: 'bg-pink-100 dark:bg-pink-900/30',
-    preview: 'bg-gradient-to-br from-pink-100 to-rose-200 dark:from-pink-900/30 dark:to-rose-900/20'
+    preview: 'bg-pink-400/20 dark:bg-pink-400/30'
   },
   { 
     label: 'Czerwony', 
     value: 'bg-red-100 dark:bg-red-900/30',
-    preview: 'bg-gradient-to-br from-red-100 to-rose-200 dark:from-red-900/30 dark:to-rose-900/20'
+    preview: 'bg-red-400/20 dark:bg-red-400/30'
   },
   { 
     label: 'Pomarańczowy', 
     value: 'bg-orange-100 dark:bg-orange-900/30',
-    preview: 'bg-gradient-to-br from-orange-100 to-amber-200 dark:from-orange-900/30 dark:to-amber-900/20'
+    preview: 'bg-orange-400/20 dark:bg-orange-400/30'
   },
   { 
     label: 'Szary', 
     value: 'bg-gray-100 dark:bg-gray-800',
-    preview: 'bg-gradient-to-br from-gray-100 to-slate-200 dark:from-gray-800 dark:to-gray-900'
+    preview: 'bg-neutral-400/20 dark:bg-neutral-400/30'
   },
 ];
 
@@ -106,9 +106,9 @@ const RoutineForm: React.FC<RoutineFormProps> = ({ routine, onSave, onCancel }) 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label htmlFor="name" className="block text-sm font-medium text-neutral-600 dark:text-neutral-300 mb-1.5">
           Nazwa rytuału
         </label>
         <input
@@ -117,28 +117,28 @@ const RoutineForm: React.FC<RoutineFormProps> = ({ routine, onSave, onCancel }) 
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm 
-            focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 
-            dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
+          className="block w-full px-4 py-2.5 rounded-xl bg-white/10 dark:bg-white/5 
+            backdrop-blur-md border border-white/10 text-black dark:text-white 
+            focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50"
           placeholder="np. Poranna rutyna"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="block text-sm font-medium text-neutral-600 dark:text-neutral-300 mb-1.5">
           Ikona
         </label>
-        <div className="mt-1 grid grid-cols-6 gap-2">
+        <div className="grid grid-cols-6 gap-2">
           {ICONS.map((emoji) => (
             <button
               key={emoji}
               type="button"
               onClick={() => setIcon(emoji)}
               className={`
-                flex items-center justify-center p-2 rounded-md text-xl transition-all
+                flex items-center justify-center p-2 rounded-xl text-xl h-12 w-full transition-all duration-200
                 ${icon === emoji 
-                  ? 'bg-blue-100 dark:bg-blue-900/60 ring-2 ring-blue-500 dark:ring-blue-400 scale-110 shadow-sm' 
-                  : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105'
+                  ? 'bg-blue-500/20 dark:bg-blue-500/30 border border-blue-500/30 dark:border-blue-400/50 shadow-sm' 
+                  : 'bg-white/5 backdrop-blur-md dark:bg-white/5 border border-white/10 hover:bg-white/10'
                 }
               `}
             >
@@ -150,7 +150,7 @@ const RoutineForm: React.FC<RoutineFormProps> = ({ routine, onSave, onCancel }) 
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label htmlFor="time" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label htmlFor="time" className="block text-sm font-medium text-neutral-600 dark:text-neutral-300 mb-1.5">
             Czas rozpoczęcia
           </label>
           <input
@@ -159,22 +159,26 @@ const RoutineForm: React.FC<RoutineFormProps> = ({ routine, onSave, onCancel }) 
             required
             value={time}
             onChange={(e) => setTime(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm 
-              focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 
-              dark:text-white dark:focus:ring-blue-400 dark:focus:border-blue-400"
+            className="block w-full px-4 py-2.5 rounded-xl bg-white/10 dark:bg-white/5 
+              backdrop-blur-md border border-white/10 text-black dark:text-white 
+              focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50"
           />
         </div>
         <div>
-          <label htmlFor="duration" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label htmlFor="duration" className="block text-sm font-medium text-neutral-600 dark:text-neutral-300 mb-1.5">
             Czas trwania (min)
           </label>
           <select
             id="duration"
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm 
-              focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 
-              dark:text-white dark:focus:ring-blue-400 dark:focus:border-blue-400"
+            className="block w-full px-4 py-2.5 rounded-xl bg-white/10 dark:bg-white/5 
+              backdrop-blur-md border border-white/10 text-black dark:text-white 
+              focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 appearance-none"
+            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23999' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, 
+              backgroundRepeat: 'no-repeat', 
+              backgroundPosition: 'right 1rem center',
+              backgroundSize: '1rem' }}
           >
             <option value="15">15 minut</option>
             <option value="30">30 minut</option>
@@ -187,16 +191,20 @@ const RoutineForm: React.FC<RoutineFormProps> = ({ routine, onSave, onCancel }) 
       </div>
 
       <div>
-        <label htmlFor="repeat" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label htmlFor="repeat" className="block text-sm font-medium text-neutral-600 dark:text-neutral-300 mb-1.5">
           Powtarzanie
         </label>
         <select
           id="repeat"
           value={repeat}
           onChange={(e) => setRepeat(e.target.value as 'daily' | 'weekday' | 'weekend')}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm 
-            focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 
-            dark:text-white dark:focus:ring-blue-400 dark:focus:border-blue-400"
+          className="block w-full px-4 py-2.5 rounded-xl bg-white/10 dark:bg-white/5 
+            backdrop-blur-md border border-white/10 text-black dark:text-white 
+            focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 appearance-none"
+          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23999' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, 
+            backgroundRepeat: 'no-repeat', 
+            backgroundPosition: 'right 1rem center',
+            backgroundSize: '1rem' }}
         >
           <option value="daily">Codziennie</option>
           <option value="weekday">Dni robocze (pon-pt)</option>
@@ -205,7 +213,7 @@ const RoutineForm: React.FC<RoutineFormProps> = ({ routine, onSave, onCancel }) 
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label className="block text-sm font-medium text-neutral-600 dark:text-neutral-300 mb-1.5">
           Kolor
         </label>
         <div className="grid grid-cols-3 gap-2">
@@ -215,18 +223,18 @@ const RoutineForm: React.FC<RoutineFormProps> = ({ routine, onSave, onCancel }) 
               type="button"
               onClick={() => setColor(colorOption.value)}
               className={`
-                flex items-center justify-center p-2 rounded-md text-sm h-10 transition-all
+                flex items-center justify-center p-2 rounded-xl h-10 transition-all duration-200
                 ${colorOption.preview}
                 ${color === colorOption.value 
-                  ? 'ring-2 ring-blue-500 dark:ring-blue-400 scale-105 shadow-md' 
-                  : 'hover:opacity-90 hover:scale-102'
+                  ? 'border border-blue-500/30 dark:border-blue-400/50 shadow-sm' 
+                  : 'border border-white/10 hover:border-white/20'
                 }
               `}
               title={colorOption.label}
             >
               {color === colorOption.value && (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-800 dark:text-white drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-black dark:text-white">
+                  <path d="M20 6L9 17l-5-5" />
                 </svg>
               )}
             </button>
@@ -235,7 +243,7 @@ const RoutineForm: React.FC<RoutineFormProps> = ({ routine, onSave, onCancel }) 
       </div>
 
       <div>
-        <label htmlFor="notes" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label htmlFor="notes" className="block text-sm font-medium text-neutral-600 dark:text-neutral-300 mb-1.5">
           Notatki (opcjonalnie)
         </label>
         <textarea
@@ -243,9 +251,9 @@ const RoutineForm: React.FC<RoutineFormProps> = ({ routine, onSave, onCancel }) 
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           rows={3}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm 
-            focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 
-            dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
+          className="block w-full px-4 py-2.5 rounded-xl bg-white/10 dark:bg-white/5 
+            backdrop-blur-md border border-white/10 text-black dark:text-white 
+            focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 resize-none"
           placeholder="Dodatkowe informacje o rytuale..."
         />
       </div>
@@ -254,17 +262,16 @@ const RoutineForm: React.FC<RoutineFormProps> = ({ routine, onSave, onCancel }) 
         <button
           type="button"
           onClick={onCancel}
-          className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md 
-            hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 
-            transition-colors shadow-sm"
+          className="px-5 py-2.5 rounded-full text-sm font-medium bg-white/10 backdrop-blur-md 
+            border border-white/10 text-black dark:text-white hover:bg-white/20 
+            transition-colors duration-200"
         >
           Anuluj
         </button>
         <button
           type="submit"
-          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md 
-            hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 
-            transition-colors shadow-sm"
+          className="px-5 py-2.5 rounded-full text-sm font-medium bg-blue-500 text-white 
+            hover:bg-blue-600 transition-colors duration-200"
         >
           {routine ? 'Zapisz zmiany' : 'Dodaj rytuał'}
         </button>

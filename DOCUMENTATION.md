@@ -15,6 +15,8 @@
 src/
 ├── components/            # Komponenty UI
 │   ├── DraggableTaskCard.tsx  # Wrapper dla TaskCard z obsługą drag & drop
+│   ├── Header.tsx         # Nagłówek aplikacji z przełącznikiem trybu ciemnego
+│   ├── Navigation.tsx     # System nawigacji z desktopowym menu i dolnym paskiem na mobile
 │   ├── TaskCard.tsx       # Karta zadania
 │   ├── TaskForm.tsx       # Formularz dodawania zadania
 │   ├── TaskList.tsx       # Lista zadań z obsługą sortowania
@@ -22,8 +24,10 @@ src/
 │   └── DeleteConfirmationModal.tsx  # Modal potwierdzenia usunięcia
 ├── pages/                 # Widoki/strony
 │   ├── Planner.tsx        # Główny widok planera
-│   ├── Focus.tsx          # Widok trybu skupienia
-│   └── Stats.tsx          # Widok statystyk
+│   ├── DailyView.tsx      # Widok zarządzania codziennymi zadaniami
+│   ├── Pomodoro.tsx       # Widok zegara Pomodoro
+│   ├── Progress.tsx       # Widok statystyk i postępów
+│   └── FocusMode.tsx      # Widok trybu skupienia
 ├── services/              # Warstwa usług
 │   ├── TaskService.ts     # Logika biznesowa dla zadań
 │   └── ProgressService.ts # Usługa do śledzenia postępów
@@ -207,6 +211,78 @@ interface TaskCardProps {
 />
 ```
 
+#### Header i Navigation
+
+System nawigacji składa się z dwóch głównych komponentów:
+
+##### Header
+
+```tsx
+<Header />
+```
+
+Header zawiera tytuł aplikacji oraz przełącznik trybu ciemnego/jasnego. Jest używany jako część głównego komponentu nawigacyjnego.
+
+##### Navigation
+
+```tsx
+<Navigation />
+```
+
+Komponent Navigation implementuje responsywny system nawigacyjny:
+
+1. **Nawigacja desktopowa** - poziome menu w stylu iOS z segmentowanymi kontrolkami:
+   ```tsx
+   <div className="hidden md:flex justify-center py-2 bg-white/80 dark:bg-black/10 backdrop-blur-md">
+     <div className="flex gap-1 bg-white/10 dark:bg-white/5 p-1 rounded-full">
+       {/* Przyciski nawigacyjne */}
+     </div>
+   </div>
+   ```
+
+2. **Dolny pasek zakładek na mobile** - w stylu iOS z ikonami i etykietami:
+   ```tsx
+   <div className="md:hidden fixed bottom-0 inset-x-0 bg-white/80 dark:bg-black/50 backdrop-blur-lg">
+     {/* Przyciski zakładek */}
+   </div>
+   ```
+
+3. **Inteligentne zachowanie przy przewijaniu** - pasek nawigacji chowa się podczas przewijania w dół i pojawia przy przewijaniu w górę:
+   ```tsx
+   useEffect(() => {
+     const handleScroll = () => {
+       const currentScrollPos = window.pageYOffset;
+       const isScrollingDown = prevScrollPos < currentScrollPos;
+       
+       if (isScrollingDown && currentScrollPos > 10) {
+         setIsVisible(false);
+       } else if (isScrollingUp || currentScrollPos < 10) {
+         setIsVisible(true);
+       }
+       
+       setPrevScrollPos(currentScrollPos);
+     };
+
+     window.addEventListener('scroll', handleScroll);
+     return () => window.removeEventListener('scroll', handleScroll);
+   }, [prevScrollPos]);
+   ```
+
+Nawigacja wykorzystuje React Router do zarządzania routingiem aplikacji:
+
+```tsx
+const navigate = useNavigate();
+const location = useLocation();
+const currentPath = location.pathname;
+
+// Określanie aktywnej zakładki
+const isActive = (path: string) => {
+  if (path === "/" && currentPath === "/") return true;
+  if (path !== "/" && currentPath.includes(path.substring(1))) return true;
+  return false;
+};
+```
+
 ### Animacje i efekty
 
 1. **Transition i transform** - dla płynnych przejść
@@ -224,6 +300,20 @@ interface TaskCardProps {
    ```css
    hover:bg-gray-200 dark:hover:bg-gray-600
    ```
+
+#### Inspiracja designem iOS
+
+System nawigacji został zaprojektowany zgodnie z estetyką iOS 17, obejmując:
+
+1. **Minimalistyczny design** - czyste linie, zaokrąglone narożniki i subtelne cienie
+2. **Efekt translucencji** - półprzezroczyste tła z efektem rozmycia tła (backdrop-blur)
+3. **Segmentowane kontrolki** - w stylu iOS dla widoku desktopowego
+4. **Dolny pasek zakładek** - zgodny z wytycznymi Human Interface Guidelines dla iOS
+5. **Inteligentne chowanie UI** - zwiększenie przestrzeni użytkowej na urządzeniach mobilnych
+6. **Wsparcie dla trybu ciemnego/jasnego** - automatyczna adaptacja kolorów i kontrastów
+7. **Responsywność** - dostosowanie do różnych rozmiarów ekranów z zachowaniem spójnej estetyki
+
+Te elementy zostały zaimplementowane przy użyciu TailwindCSS, co pozwala na zachowanie spójnego wyglądu w całej aplikacji.
 
 ## Stan aplikacji
 
@@ -303,4 +393,36 @@ const { handleDragStart, handleDragOver, handleDrop } = useDragAndDrop(onDropCal
 >
   {/* zawartość */}
 </div>
-``` 
+```
+
+### Inspiracja designem iOS
+
+System nawigacji został zaprojektowany zgodnie z estetyką iOS 17, obejmując:
+
+1. **Minimalistyczny design** - czyste linie, zaokrąglone narożniki i subtelne cienie
+2. **Efekt translucencji** - półprzezroczyste tła z efektem rozmycia tła (backdrop-blur)
+3. **Segmentowane kontrolki** - w stylu iOS dla widoku desktopowego
+4. **Dolny pasek zakładek** - zgodny z wytycznymi Human Interface Guidelines dla iOS
+5. **Inteligentne chowanie UI** - zwiększenie przestrzeni użytkowej na urządzeniach mobilnych
+6. **Wsparcie dla trybu ciemnego/jasnego** - automatyczna adaptacja kolorów i kontrastów
+7. **Responsywność** - dostosowanie do różnych rozmiarów ekranów z zachowaniem spójnej estetyki
+
+Te elementy zostały zaimplementowane przy użyciu TailwindCSS, co pozwala na zachowanie spójnego wyglądu w całej aplikacji.
+
+### Animacje i efekty
+
+1. **Transition i transform** - dla płynnych przejść
+   ```css
+   transition-all duration-300 hover:translate-y-[-2px]
+   ```
+
+2. **Animacje** - zdefiniowane w `index.css`
+   ```css
+   @keyframes fadeIn { /* ... */ }
+   .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
+   ```
+
+3. **Hover i focus** - interaktywne stany
+   ```css
+   hover:bg-gray-200 dark:hover:bg-gray-600
+   ``` 
