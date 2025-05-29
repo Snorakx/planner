@@ -5,7 +5,7 @@ import { getWeekStart, getWeekEnd, generateDateRange, getDateDaysAgo, isSameDay 
 export class ProgressService {
   private static instance: ProgressService;
   private repository: ProgressRepository;
-  private streakDataKey = 'adhd_planner_streak_data';
+  private streakDataKey = 'planner_streak_data';
   
   private constructor() {
     this.repository = ProgressRepository.getInstance();
@@ -307,7 +307,7 @@ export class ProgressService {
       localStorage.removeItem(this.streakDataKey);
       
       // Clear existing progress data using a direct localStorage key
-      const progressStorageKey = 'adhd_planner_progress_data';
+      const progressStorageKey = 'planner_progress_data';
       localStorage.setItem(progressStorageKey, JSON.stringify([]));
       
       const today = new Date();

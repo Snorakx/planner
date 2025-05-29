@@ -1,6 +1,6 @@
 import { PomodoroSession } from "../types/Pomodoro";
 
-const STORAGE_KEY = "adhd_planner_pomodoro_sessions";
+const STORAGE_KEY = "planner_pomodoro_sessions";
 
 export class PomodoroRepository {
   private static instance: PomodoroRepository;

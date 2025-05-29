@@ -1,15 +1,15 @@
-# ADHD Planner
+# Planner
 
-A comprehensive productivity application designed specifically for people with ADHD, focusing on task management, time tracking, focus sessions, and progress visualization.
+A comprehensive productivity application focusing on task management, time tracking, focus sessions, and progress visualization.
 
-![ADHD Planner](https://img.shields.io/badge/ADHD%20Planner-v1.0-blue)
+![Planner](https://img.shields.io/badge/Planner-v1.0-blue)
 ![React](https://img.shields.io/badge/React-18.2.0-61DAFB?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.2.2-3178C6?logo=typescript)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.3.5-38B2AC?logo=tailwind-css)
 
 ## 📱 Application Modules
 
-The ADHD Planner consists of five main modules that work together to provide a complete productivity system:
+The Planner consists of five main modules that work together to provide a complete productivity system:
 
 1. **📋 Task Planner** - Create, organize, and manage tasks with subtasks
 2. **📅 Daily Structure & Routines** - Visual timeline with consistent daily routines and schedules
@@ -161,13 +161,13 @@ The application uses React Router for navigation between modules:
 ## 💾 Data Persistence
 
 All data is stored locally using localStorage with the following keys:
-- `adhd_planner_tasks` - Task data
-- `adhd_planner_pomodoro_sessions` - Pomodoro session data
-- `adhd_planner_rewards` - Reward data
-- `adhd_planner_focus_sessions` - Focus session data
-- `adhd_planner_progress_data` - Progress statistics
-- `adhd_planner_streak_data` - Streak tracking data
-- `adhd_planner_daily_routines` - Daily routines data
+- `planner_tasks` - Task data
+- `planner_pomodoro_sessions` - Pomodoro session data
+- `planner_rewards` - Reward data
+- `planner_focus_sessions` - Focus session data
+- `planner_progress_data` - Progress statistics
+- `planner_streak_data` - Streak tracking data
+- `planner_daily_routines` - Daily routines data
 
 ## 🚀 Future Enhancements
 

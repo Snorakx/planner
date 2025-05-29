@@ -1,6 +1,6 @@
 import { Reward } from "../types/Reward";
 
-const STORAGE_KEY = "adhd_planner_rewards";
+const STORAGE_KEY = "planner_rewards";
 
 export class RewardRepository {
   private static instance: RewardRepository;

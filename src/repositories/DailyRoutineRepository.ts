@@ -3,7 +3,7 @@ import { DailyRoutine } from '../types/DailyRoutine';
 
 export class DailyRoutineRepository {
   private static instance: DailyRoutineRepository;
-  private storageKey = 'adhd_planner_daily_routines';
+  private storageKey = 'planner_daily_routines';
 
   // Domyślne, wstępne rytuały dla nowego użytkownika
   private defaultRoutines: DailyRoutine[] = [

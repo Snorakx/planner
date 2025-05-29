@@ -245,7 +245,7 @@ export const Progress: React.FC = () => {
               
               {/* Tips and Insights */}
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-                <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Tips for ADHD Productivity</h2>
+                <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Productivity Tips</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
                     <h3 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Time Blocking</h3>

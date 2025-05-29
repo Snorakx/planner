@@ -15,7 +15,7 @@ export const demoTasks: Task[] = [
   {
     id: uuidv4(),
     title: "Complete React project",
-    description: "Finish the ADHD Planner application with all core features",
+    description: "Finish the Planner application with all core features",
     subtasks: [
       { id: uuidv4(), title: "Implement TaskRepository", done: true },
       { id: uuidv4(), title: "Create TaskService", done: true },
@@ -109,8 +109,8 @@ export const demoRewards: Reward[] = [
 
 // Function to initialize demo data in localStorage
 export const initializeDemoData = (): void => {
-  const tasksStorageKey = "adhd_planner_tasks";
-  const rewardsStorageKey = "adhd_planner_rewards";
+  const tasksStorageKey = "planner_tasks";
+  const rewardsStorageKey = "planner_rewards";
   
   // Initialize tasks if none exist
   const existingTasks = localStorage.getItem(tasksStorageKey);

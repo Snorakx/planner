@@ -1,6 +1,6 @@
 import { Task } from "../types/Task";
 
-const STORAGE_KEY = "adhd_planner_tasks";
+const STORAGE_KEY = "planner_tasks";
 
 export class TaskRepository {
   private static instance: TaskRepository;

@@ -2,7 +2,7 @@ import { ProgressData } from '../types/Progress';
 
 export class ProgressRepository {
   private static instance: ProgressRepository;
-  private storageKey = 'adhd_planner_progress_data';
+  private storageKey = 'planner_progress_data';
 
   private constructor() {}
 

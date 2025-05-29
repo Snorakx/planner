@@ -3,7 +3,7 @@ import { FocusSession } from "../types/Focus";
 import { Task } from "../types/Task";
 import { TaskRepository } from "./TaskRepository";
 
-const STORAGE_KEY = "adhd_planner_focus_session";
+const STORAGE_KEY = "planner_focus_session";
 const DEFAULT_DURATION = 25; // 25 minutes
 
 export class FocusSessionRepository {

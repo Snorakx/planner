@@ -307,7 +307,7 @@ const DailyView: React.FC = () => {
         )}
       </div>
       
-      {/* Panel informacyjny ADHD */}
+      {/* Panel informacyjny */}
       <div className="bg-blue-50 dark:bg-blue-900/20 p-3 border-t border-blue-100 dark:border-blue-800">
         <div className="flex items-start space-x-3">
           <div className="bg-blue-100 dark:bg-blue-800 rounded-full p-2">
@@ -316,7 +316,7 @@ const DailyView: React.FC = () => {
             </svg>
           </div>
           <div>
-            <h3 className="font-medium text-blue-800 dark:text-blue-300 text-sm">Wskazówka ADHD</h3>
+            <h3 className="font-medium text-blue-800 dark:text-blue-300 text-sm">Wskazówka</h3>
             <p className="text-xs text-blue-700 dark:text-blue-400 mt-1">
               Stałe rytuały zmniejszają zmęczenie decyzyjne i zwiększają przewidywalność dnia.
               Spróbuj ustalić 3-4 stałe punkty, które będą kotwicami dla Twojej uwagi.
