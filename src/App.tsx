@@ -16,7 +16,7 @@ export const App: React.FC = () => {
         <Route
           path="/pomodoro"
           element={
-            <div className="min-h-screen bg-background">
+            <div className="min-h-screen bg-background dark:bg-gray-950 dark:bg-gradient-to-b dark:from-gray-950 dark:to-black">
               <Navigation />
               <div className="container mx-auto px-4 py-6">
                 <Pomodoro />
@@ -27,7 +27,7 @@ export const App: React.FC = () => {
         <Route
           path="/progress"
           element={
-            <div className="min-h-screen bg-background">
+            <div className="min-h-screen bg-background dark:bg-gray-950 dark:bg-gradient-to-b dark:from-gray-950 dark:to-black">
               <Navigation />
               <div className="container mx-auto px-4 py-6">
                 <Progress />
@@ -38,7 +38,7 @@ export const App: React.FC = () => {
         <Route
           path="/daily"
           element={
-            <div className="min-h-screen bg-background">
+            <div className="min-h-screen bg-background dark:bg-gray-950 dark:bg-gradient-to-b dark:from-gray-950 dark:to-black">
               <Navigation />
               <div className="container mx-auto px-4 py-6">
                 <DailyView />
@@ -49,7 +49,7 @@ export const App: React.FC = () => {
         <Route
           path="/*"
           element={
-            <div className="min-h-screen bg-background">
+            <div className="min-h-screen bg-background dark:bg-gray-950 dark:bg-gradient-to-b dark:from-gray-950 dark:to-black">
               <Navigation />
               <div className="container mx-auto px-4 py-6">
                 <Planner />

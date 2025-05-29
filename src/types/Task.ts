@@ -13,4 +13,5 @@ export interface Task {
   status: "todo" | "in-progress" | "done";
   focus: boolean; // czy to priorytetowe zadanie
   createdAt: string;
+  lastUpdated?: number; // timestamp ostatniej aktualizacji - do animacji
 } 

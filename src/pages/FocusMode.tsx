@@ -116,14 +116,24 @@ export const FocusMode: React.FC = () => {
   
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="bg-gray-800 rounded-lg p-8 shadow-lg text-white max-w-md">
-          <h2 className="text-2xl font-bold mb-4">Error</h2>
-          <p className="mb-6">{error}</p>
+      <div className="min-h-screen bg-gray-950 dark:bg-black bg-gradient-to-b from-gray-900 to-gray-950 flex items-center justify-center p-4">
+        <div className="backdrop-blur-xl bg-white/10 dark:bg-gray-800/30 rounded-3xl p-8 shadow-xl border border-white/10 text-white max-w-md animate-fadeIn">
+          <div className="flex items-center mb-6">
+            <div className="bg-red-500/20 p-3 rounded-full mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">Error</h2>
+          </div>
+          <p className="mb-8 text-gray-300 leading-relaxed">{error}</p>
           <button
             onClick={handleExitFocus}
-            className="px-6 py-2 bg-primary text-white rounded-md hover:bg-opacity-90"
+            className="w-full px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-full transition-colors duration-200 shadow-lg shadow-blue-500/20 font-medium flex items-center justify-center"
           >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd" />
+            </svg>
             Return to Planner
           </button>
         </div>
@@ -133,36 +143,39 @@ export const FocusMode: React.FC = () => {
   
   if (isComplete) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="bg-gray-800 rounded-lg p-8 shadow-lg text-white max-w-md">
-          <div className="text-center mb-6">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-16 w-16 mx-auto text-green-500 mb-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <h2 className="text-2xl font-bold mb-2">Focus Session Complete!</h2>
-            <p className="text-gray-300">
+      <div className="min-h-screen bg-gray-950 dark:bg-black bg-gradient-to-b from-gray-900 to-gray-950 flex items-center justify-center p-4">
+        <div className="backdrop-blur-xl bg-white/10 dark:bg-gray-800/30 rounded-3xl p-8 shadow-xl border border-white/10 text-white max-w-md animate-fadeIn">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-green-500/20 rounded-full mb-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-10 w-10 text-green-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <h2 className="text-2xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">Focus Session Complete!</h2>
+            <p className="text-gray-300 leading-relaxed">
               Great job staying focused and making progress on your tasks.
             </p>
           </div>
-          <div className="flex justify-center">
-            <button
-              onClick={handleExitFocus}
-              className="px-6 py-2 bg-primary text-white rounded-md hover:bg-opacity-90"
-            >
-              Return to Planner
-            </button>
-          </div>
+          <button
+            onClick={handleExitFocus}
+            className="w-full px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-full transition-colors duration-200 shadow-lg shadow-blue-500/20 font-medium flex items-center justify-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd" />
+            </svg>
+            Return to Planner
+          </button>
         </div>
       </div>
     );
@@ -170,24 +183,27 @@ export const FocusMode: React.FC = () => {
   
   if (!task || !session) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      <div className="min-h-screen bg-gray-950 dark:bg-black bg-gradient-to-b from-gray-900 to-gray-950 flex items-center justify-center">
+        <div className="relative w-16 h-16">
+          <div className="absolute top-0 left-0 w-full h-full rounded-full border-t-2 border-l-2 border-blue-500 animate-spin"></div>
+          <div className="absolute top-1 left-1 w-14 h-14 rounded-full border-r-2 border-b-2 border-indigo-400 animate-spin animation-delay-200"></div>
+        </div>
       </div>
     );
   }
   
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col px-4 py-8">
+    <div className="min-h-screen bg-gray-950 dark:bg-black bg-gradient-to-b from-gray-900 to-gray-950 flex flex-col px-4 py-8 animate-fadeIn">
       <div className="max-w-4xl w-full mx-auto flex-grow">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold text-white">Focus Mode</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">Focus Mode</h1>
           <button
             onClick={handleExitFocus}
-            className="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 flex items-center"
+            className="px-4 py-2.5 bg-gray-800/80 backdrop-blur-sm text-white rounded-full hover:bg-gray-700/80 transition-colors duration-200 flex items-center border border-white/10 shadow-sm"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-1"
+              className="h-5 w-5 mr-1.5"
               viewBox="0 0 20 20"
               fill="currentColor"
             >

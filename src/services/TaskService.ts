@@ -154,7 +154,51 @@ export class TaskService {
     return task;
   }
 
+  async updateTask(task: Task): Promise<Task> {
+    await this.repository.updateTask(task);
+    
+    // Add animation trigger to highlight the task after update
+    task.lastUpdated = new Date().getTime();
+    
+    return task;
+  }
+
   async deleteTask(taskId: string): Promise<void> {
     await this.repository.deleteTask(taskId);
+  }
+
+  async reorderTasks(taskId: string, fromIndex: number, toIndex: number): Promise<Task[]> {
+    try {
+      // Pobierz wszystkie zadania
+      const tasks = await this.repository.getTasks();
+      
+      // Znajdź przesuwane zadanie
+      const task = tasks.find(t => t.id === taskId);
+      if (!task) {
+        throw new Error(`Task with id ${taskId} not found`);
+      }
+      
+      // Utwórz tymczasową kopię tablicy zadań do sortowania
+      const tempTasks = [...tasks];
+      
+      // Usuń zadanie z pozycji fromIndex
+      const [removedTask] = tempTasks.splice(fromIndex, 1);
+      
+      // Wstaw zadanie na pozycję toIndex
+      tempTasks.splice(toIndex, 0, removedTask);
+      
+      // Dodaj znacznik czasu ostatniej aktualizacji
+      removedTask.lastUpdated = new Date().getTime();
+      
+      // Zapisz zaktualizowaną listę zadań w repozytorium
+      // To jest uproszczone, ponieważ nadpisujemy całą listę zadań
+      // W prawdziwej aplikacji powinniśmy mieć dedykowaną metodę do aktualizacji listy
+      await this.repository.saveTasks(tempTasks);
+      
+      return tempTasks;
+    } catch (error) {
+      console.error("Error reordering tasks:", error);
+      throw error;
+    }
   }
 } 

@@ -31,6 +31,7 @@ export class FocusService {
   async startFocus(taskId: string): Promise<FocusSession> {
     // First, check if there's already an active session
     const currentSession = await this.repository.getCurrentSession();
+    console.log(taskId, currentSession, "currentSession")
     
     if (currentSession) {
       if (currentSession.taskId === taskId) {

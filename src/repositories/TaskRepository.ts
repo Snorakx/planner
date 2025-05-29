@@ -62,4 +62,13 @@ export class TaskRepository {
       throw error;
     }
   }
+
+  async saveTasks(tasks: Task[]): Promise<void> {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    } catch (error) {
+      console.error("Error saving tasks to localStorage:", error);
+      throw error;
+    }
+  }
 } 

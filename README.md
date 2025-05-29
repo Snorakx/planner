@@ -1,181 +1,121 @@
-# Planner
+# Planner - aplikacja do zarządzania zadaniami przyjazna dla ADHD
 
-A comprehensive productivity application focusing on task management, time tracking, focus sessions, and progress visualization.
+<p align="center">
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+</p>
 
-![Planner](https://img.shields.io/badge/Planner-v1.0-blue)
-![React](https://img.shields.io/badge/React-18.2.0-61DAFB?logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.2.2-3178C6?logo=typescript)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.3.5-38B2AC?logo=tailwind-css)
+<p align="center">
+  <img src="https://i.imgur.com/placeholder.png" alt="Zrzut ekranu aplikacji" width="800" />
+</p>
 
-## 📱 Application Modules
+## 📱 O projekcie
 
-The Planner consists of five main modules that work together to provide a complete productivity system:
+**Planner** to nowoczesna aplikacja do zarządzania zadaniami zaprojektowana specjalnie dla osób z ADHD lub osób poszukujących lepszych sposobów na organizację czasu i zarządzanie zadaniami. Łączy najlepsze praktyki UX z badaniami nad ADHD, aby stworzyć produktywne, a jednocześnie przyjazne środowisko.
 
-1. **📋 Task Planner** - Create, organize, and manage tasks with subtasks
-2. **📅 Daily Structure & Routines** - Visual timeline with consistent daily routines and schedules
-3. **⏱️ Pomodoro Timer** - Track work sessions using the Pomodoro technique with reward system
-4. **🧠 Focus Mode** - Distraction-free environment for deep work on specific tasks
-5. **📊 Progress & Insights** - Visualize productivity data and track progress over time
+### ✨ Główne funkcje
 
-## 🏗️ Architecture
+- **Intuicyjny widok zadań** z możliwością drag-and-drop dla łatwego organizowania
+- **Tryb Focus** do pracy nad jednym zadaniem bez rozpraszania uwagi
+- **Zarządzanie subtaskami** do rozbijania dużych zadań na łatwiejsze do zarządzania części
+- **Inteligentne powiadomienia** dostosowane do wzorców uwagi ADHD
+- **Estetyczny design** inspirowany iOS z ciemnym motywem i efektami glassmorphism
+- **W pełni responsywny** działa na wszystkich urządzeniach
 
-The application follows a consistent Repository → Service → View architecture across all modules:
+## 🚀 Dlaczego warto używać Planner?
 
-```
-Repository Layer → Service Layer → View Layer
-(Data Storage)     (Business Logic)  (UI Components)
-```
+### Zaprojektowany z myślą o ADHD
 
-### Key Principles:
+Planner został stworzony przez zespół, który rozumie wyzwania związane z ADHD. Każda funkcja została zaprojektowana z myślą o tym, aby pomóc osobom z trudnościami z koncentracją i organizacją:
 
-- **Repositories** handle data persistence (localStorage)
-- **Services** contain business logic, processing, and state management
-- **Views** render UI components and handle user interactions
-- **Types** provide TypeScript interfaces for strong typing across the application
+- **Redukcja obciążenia poznawczego** dzięki przejrzystemu interfejsowi
+- **Minimalizacja dystraktorów** poprzez czysty, uporządkowany wygląd
+- **Wykorzystanie hyperfocus** poprzez dedykowany tryb skupienia
+- **Wizualna organizacja** przez drag-and-drop i systemy kategoryzacji
 
-## 🧩 Module Details
+### Główne zasady projektu
 
-### 📋 Task Planner Module
+- **Prostota** - tylko istotne funkcje, bez zbędnych komplikacji
+- **Przejrzystość** - jasne i zrozumiałe komunikaty i instrukcje
+- **Elastyczność** - dostosowuje się do różnych stylów pracy i przepływów
+- **Dostępność** - inkluzywny design dla różnych potrzeb użytkowników
 
-**Core Features:**
-- Create and manage tasks with subtasks
-- Set priorities and deadlines
-- Schedule tasks with specific times
-- Filter tasks by time (today, tomorrow, all)
-- Mark tasks as complete
-- Enter Focus Mode for specific tasks
+## 🖥️ Funkcje w szczegółach
 
-**Implementation:**
-- `TaskRepository` - Manages task data persistence
-- `TaskService` - Handles task operations and business logic
-- `Planner.tsx` - Main view component
-- `TaskCard.tsx` - Task display component
-- `TaskForm.tsx` - Task creation/editing form
+### Widok zadań
+- Intuicyjny widok kart z zadaniami
+- Sortowanie metodą drag-and-drop
+- Filtrowanie zadań (dziś, jutro, wszystkie)
+- Podświetlanie zadań priorytetowych
 
-### 📅 Daily Structure & Routines Module
+### Zarządzanie zadaniami
+- Dodawanie, edycja i usuwanie zadań
+- Podzadania (subtaski) z możliwością oznaczania jako wykonane
+- Ustawianie czasu rozpoczęcia zadania
+- Statusy zadań (do zrobienia, w trakcie, zakończone)
 
-**Core Features:**
-- Visual timeline from 6:00 to 23:00
-- Create and manage daily routines and rituals
-- Integration with tasks from Planner
-- Filter by day of week with different views
-- Auto-suggestions based on usage patterns
-- Current time indicator
+### Tryb skupienia (Focus Mode)
+- Minimalistyczny widok jednego zadania
+- Timer z przerwami w stylu Pomodoro
+- Lista subtasków dla aktualnego zadania
+- Wizualizacja postępu
 
-**Implementation:**
-- `DailyRoutineRepository` - Manages routine data persistence
-- `DailyStructureService` - Integrates routines with tasks on timeline
-- `DailyView.tsx` - Main timeline view component
-- `DailyTimeline.tsx` - Visual timeline component
-- `RoutineBlock.tsx` - Routine display component
-- `RoutineForm.tsx` - Routine creation/editing form
+### Statystyki i śledzenie
+- Dzienny/tygodniowy/miesięczny przegląd wykonanych zadań
+- Analiza wzorców produktywności
+- Wizualizacja postępów i osiągnięć
 
-### ⏱️ Pomodoro Timer Module
+## 💡 Zoptymalizowany dla użytkownika
 
-**Core Features:**
-- Standard pomodoro timing (25min work, 5min break, 15min long break)
-- Track completed pomodoro sessions
-- Reward system to motivate consistent work
-- Task association with pomodoro sessions
+- **Tryb ciemny** dostosowujący się do preferencji systemowych
+- **Animacje i przejścia** zaprojektowane, aby nie rozpraszały uwagi
+- **Dostosowany do urządzeń mobilnych** dla płynnej pracy w dowolnym miejscu
+- **Offline-first** - działa nawet bez połączenia z internetem
 
-**Implementation:**
-- `PomodoroRepository` - Stores session data
-- `RewardRepository` - Manages reward data
-- `PomodoroService` - Controls timer logic and session management
-- `RewardService` - Handles reward unlocking and progress
-- `Pomodoro.tsx` - Main timer view
-- `PomodoroTimer.tsx` - Timer component
-- `RewardCard.tsx` - Reward display component
+## 🛠️ Technologie
 
-### 🧠 Focus Mode Module
+- **Frontend:** React, TypeScript, TailwindCSS
+- **Zarządzanie stanem:** Context API, Custom Hooks
+- **Przechowywanie danych:** localStorage
+- **Routing:** React Router
+- **UI/UX:** Animacje CSS, Glassmorphism, iOS-inspired design
 
-**Core Features:**
-- Distraction-free environment
-- Task-specific focus sessions
-- Countdown timer
-- Subtask progress tracking
-- Dark mode interface for reduced visual stimulation
+## 📚 Jak zacząć
 
-**Implementation:**
-- `FocusRepository` - Manages focus session data
-- `FocusService` - Handles focus session logic
-- `FocusMode.tsx` - Main focus interface
-- `FocusTimer.tsx` - Timer component
-- `FocusTaskView.tsx` - Task display for focus mode
-- `SubtaskChecklist.tsx` - Interactive subtask list
-
-### 📊 Progress & Insights Module
-
-**Core Features:**
-- Visualize productivity metrics
-- Track completed tasks, pomodoro sessions, and focus time
-- View daily and weekly statistics
-- Monitor current and longest streaks
-- Filter data by time range
-- Customizable chart visualizations
-
-**Implementation:**
-- `ProgressRepository` - Stores productivity statistics
-- `ProgressService` - Calculates metrics and processes data
-- `Progress.tsx` - Main statistics view
-- `ProgressChart.tsx` - Data visualization component
-- `StatsSummary.tsx` - Key metrics display
-- `dateUtils.ts` - Helper functions for date processing
-
-## 🧭 Navigation System
-
-The application uses React Router for navigation between modules:
-
-```jsx
-<BrowserRouter>
-  <Routes>
-    <Route path="/focus/:taskId" element={<FocusMode />} />
-    <Route path="/focus" element={<FocusMode />} />
-    <Route path="/pomodoro" element={<LayoutWithNav><Pomodoro /></LayoutWithNav>} />
-    <Route path="/daily" element={<LayoutWithNav><DailyView /></LayoutWithNav>} />
-    <Route path="/progress" element={<LayoutWithNav><Progress /></LayoutWithNav>} />
-    <Route path="/*" element={<LayoutWithNav><Planner /></LayoutWithNav>} />
-  </Routes>
-</BrowserRouter>
-```
-
-**Navigation Component:**
-- Persistent top navigation bar
-- Visual indicators for current section
-- Direct links to main modules
-- Special handling for Focus Mode (full-screen, no navigation)
-
-## 🖥️ Getting Started
-
-1. Clone the repository
-2. Install dependencies:
+1. **Sklonuj repozytorium**
+   ```bash
+   git clone https://github.com/yourusername/planner.git
+   cd planner
    ```
+
+2. **Zainstaluj zależności**
+   ```bash
    npm install
    ```
-3. Start the development server:
-   ```
+
+3. **Uruchom aplikację w trybie deweloperskim**
+   ```bash
    npm start
    ```
-4. Access the application at `http://localhost:3000`
 
-## 💾 Data Persistence
+4. **Zbuduj wersję produkcyjną**
+   ```bash
+   npm run build
+   ```
 
-All data is stored locally using localStorage with the following keys:
-- `planner_tasks` - Task data
-- `planner_pomodoro_sessions` - Pomodoro session data
-- `planner_rewards` - Reward data
-- `planner_focus_sessions` - Focus session data
-- `planner_progress_data` - Progress statistics
-- `planner_streak_data` - Streak tracking data
-- `planner_daily_routines` - Daily routines data
+## 🤝 Wkład w projekt
 
-## 🚀 Future Enhancements
+Zachęcamy do wnoszenia wkładu w projekt! Jeśli chcesz pomóc, zapoznaj się z [CONTRIBUTING.md](CONTRIBUTING.md) aby uzyskać wskazówki.
 
-- User authentication and profiles
-- Cloud synchronization across devices
-- Recurring tasks and templates
-- Advanced analytics and insights
-- Integration with calendar systems
-- Mobile application version
-- Desktop notifications
-- Customizable themes and interface options 
+Aby uzyskać bardziej szczegółowe informacje techniczne, sprawdź [DOCUMENTATION.md](DOCUMENTATION.md).
+
+## 📜 Licencja
+
+Ten projekt jest licencjonowany na warunkach licencji MIT - szczegóły znajdziesz w pliku [LICENSE](LICENSE).
+
+## 🙏 Podziękowania
+
+- Inspiracja projektem [Linear](https://linear.app/) dla czystego UX
+- [iOS Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/) za zasady projektowe
+- Społeczność ADHD za cenne wskazówki i feedback 
