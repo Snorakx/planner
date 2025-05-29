@@ -7,10 +7,10 @@
 </p>
 
 
-  ![image](https://github.com/user-attachments/assets/e5483671-f9f7-4287-818c-d86429b8421f)
-  ![image](https://github.com/user-attachments/assets/ffd6124a-d0c6-4525-a8c6-ee4bc21f7bd1)
-  ![image](https://github.com/user-attachments/assets/b4a7a88e-72bf-4abb-8036-afd2a672f7fa)
 
+  <img src="https://github.com/user-attachments/assets/ffd6124a-d0c6-4525-a8c6-ee4bc21f7bd1" alt="Podgląd aplikacji" width="200"/>
+  <img src="https://github.com/user-attachments/assets/e5483671-f9f7-4287-818c-d86429b8421f" alt="Podgląd aplikacji" width="200"/>
+<img src="https://github.com/user-attachments/assets/b4a7a88e-72bf-4abb-8036-afd2a672f7fa" alt="Podgląd aplikacji" width="200"/>
 
 ## 📱 O projekcie
 
