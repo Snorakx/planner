@@ -105,13 +105,13 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
   const getTypeLabel = (type: "work" | "short-break" | "long-break"): string => {
     switch (type) {
       case "work":
-        return "Focus";
+        return "Pomodoro";
       case "short-break":
         return "Short Break";
       case "long-break":
         return "Long Break";
       default:
-        return "Focus";
+        return "Pomodoro";
     }
   };
 
@@ -121,97 +121,69 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
     return ((totalSeconds - seconds) / totalSeconds) * 100;
   };
 
-  const getTypeColor = (type: "work" | "short-break" | "long-break"): string => {
-    switch (type) {
-      case "work":
-        return "bg-primary";
-      case "short-break":
-        return "bg-green-500";
-      case "long-break":
-        return "bg-blue-500";
-      default:
-        return "bg-primary";
-    }
-  };
-
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 max-w-md mx-auto">
-      <div className="flex justify-center mb-6">
-        <div className="flex bg-gray-100 rounded-lg p-1">
-          <button
-            onClick={() => handleTypeChange("work")}
-            className={`px-4 py-2 rounded-md transition-colors ${
-              timerType === "work"
-                ? "bg-primary text-white"
-                : "text-gray-600 hover:bg-gray-200"
-            }`}
-            disabled={isActive || !!currentSession}
-          >
-            Focus
-          </button>
-          <button
-            onClick={() => handleTypeChange("short-break")}
-            className={`px-4 py-2 rounded-md transition-colors ${
-              timerType === "short-break"
-                ? "bg-green-500 text-white"
-                : "text-gray-600 hover:bg-gray-200"
-            }`}
-            disabled={isActive || !!currentSession}
-          >
-            Short Break
-          </button>
-          <button
-            onClick={() => handleTypeChange("long-break")}
-            className={`px-4 py-2 rounded-md transition-colors ${
-              timerType === "long-break"
-                ? "bg-blue-500 text-white"
-                : "text-gray-600 hover:bg-gray-200"
-            }`}
-            disabled={isActive || !!currentSession}
-          >
-            Long Break
-          </button>
+    <div className="max-w-md mx-auto p-4 md:p-8 rounded-2xl bg-black/70 dark:bg-black/70 backdrop-blur-xl shadow-xl">
+      {/* Timer type selector - iOS segmented control style */}
+      <div className="flex justify-center space-x-2 bg-white/10 dark:bg-white/5 p-1 rounded-full mb-8">
+        <button
+          onClick={() => handleTypeChange("work")}
+          className={`px-4 py-1 rounded-full text-sm font-medium transition-colors ${
+            timerType === "work"
+              ? "bg-white text-black dark:bg-white dark:text-black"
+              : "text-white/60 hover:bg-white/10"
+          }`}
+          disabled={isActive || !!currentSession}
+        >
+          Pomodoro
+        </button>
+        <button
+          onClick={() => handleTypeChange("short-break")}
+          className={`px-4 py-1 rounded-full text-sm font-medium transition-colors ${
+            timerType === "short-break"
+              ? "bg-white text-black dark:bg-white dark:text-black"
+              : "text-white/60 hover:bg-white/10"
+          }`}
+          disabled={isActive || !!currentSession}
+        >
+          Short Break
+        </button>
+        <button
+          onClick={() => handleTypeChange("long-break")}
+          className={`px-4 py-1 rounded-full text-sm font-medium transition-colors ${
+            timerType === "long-break"
+              ? "bg-white text-black dark:bg-white dark:text-black"
+              : "text-white/60 hover:bg-white/10"
+          }`}
+          disabled={isActive || !!currentSession}
+        >
+          Long Break
+        </button>
+      </div>
+
+      {/* Progress bar */}
+      <div className="mb-8">
+        <div className="relative h-2 rounded-full bg-white/10 overflow-hidden">
+          <div
+            style={{ width: `${getProgressPercentage()}%` }}
+            className="absolute left-0 top-0 h-full bg-primary transition-all duration-500 ease-in-out"
+          ></div>
         </div>
       </div>
 
-      <div className="mb-6">
-        <div className="relative pt-1">
-          <div className="flex mb-2 items-center justify-between">
-            <div>
-              <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-white bg-gray-500">
-                {getTypeLabel(timerType)}
-              </span>
-            </div>
-            <div className="text-right">
-              <span className="text-xs font-semibold inline-block text-gray-600">
-                {getProgressPercentage().toFixed(0)}%
-              </span>
-            </div>
-          </div>
-          <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
-            <div
-              style={{ width: `${getProgressPercentage()}%` }}
-              className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center ${getTypeColor(
-                timerType
-              )}`}
-            ></div>
-          </div>
-        </div>
-
-        <div className="text-center">
-          <div className="text-6xl font-bold mb-4">{formatTime(seconds)}</div>
+      {/* Timer display */}
+      <div className="text-center mb-8">
+        <div className="text-6xl md:text-7xl font-mono tracking-wider text-white/90 dark:text-white/90">
+          {formatTime(seconds)}
         </div>
       </div>
 
+      {/* Task selector (for work sessions) */}
       {timerType === "work" && !currentSession && (
-        <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Associate with Task (Optional)
-          </label>
+        <div className="mb-8">
           <select
             value={selectedTask}
             onChange={(e) => setSelectedTask(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full p-2 bg-white/10 dark:bg-white/5 border border-white/20 rounded-xl text-white backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-white/30"
             disabled={isActive || !!currentSession}
           >
             <option value="">-- Select a task --</option>
@@ -226,25 +198,26 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         </div>
       )}
 
+      {/* Control buttons */}
       <div className="flex justify-center space-x-4">
         {!isActive ? (
           <button
             onClick={handleStart}
-            className="px-6 py-2 bg-primary text-white rounded-md hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
+            className="rounded-xl border border-white/20 backdrop-blur-md px-6 py-2 transition hover:bg-white/10 text-white dark:text-white text-sm font-semibold"
           >
             {currentSession ? "Resume" : "Start"}
           </button>
         ) : (
           <button
             onClick={handlePause}
-            className="px-6 py-2 bg-yellow-500 text-white rounded-md hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50"
+            className="rounded-xl border border-white/20 backdrop-blur-md px-6 py-2 bg-white text-black dark:bg-white dark:text-black text-sm font-semibold"
           >
             Pause
           </button>
         )}
         <button
           onClick={handleReset}
-          className="px-6 py-2 bg-gray-500 text-white rounded-md hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+          className="rounded-xl border border-white/20 backdrop-blur-md px-6 py-2 transition hover:bg-white/10 text-white dark:text-white text-sm font-semibold"
           disabled={!!currentSession}
         >
           Reset

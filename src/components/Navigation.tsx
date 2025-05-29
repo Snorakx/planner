@@ -1,28 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Header } from "./Header";
 
 export const Navigation: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
-  const [isDark, setIsDark] = useState(false);
-
-  // Inicjalizacja stanu trybu ciemnego
-  useEffect(() => {
-    setIsDark(document.documentElement.classList.contains('dark'));
-  }, []);
-
-  const toggleDarkMode = () => {
-    if (document.documentElement.classList.contains('dark')) {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-      setIsDark(false);
-    } else {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-      setIsDark(true);
-    }
-  };
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
 
   const isActive = (path: string) => {
     if (path === "/" && currentPath === "/") return true;
@@ -30,153 +16,134 @@ export const Navigation: React.FC = () => {
     return false;
   };
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  // Handle scroll behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      const isScrollingDown = prevScrollPos < currentScrollPos;
+      const isScrollingUp = prevScrollPos > currentScrollPos;
+      
+      // If scrolling down and not at the top, hide navigation
+      if (isScrollingDown && currentScrollPos > 10) {
+        setIsVisible(false);
+      } 
+      // If scrolling up or at the top, show navigation
+      else if (isScrollingUp || currentScrollPos < 10) {
+        setIsVisible(true);
+      }
+      
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [prevScrollPos]);
+
+  const navigationItems = [
+    {
+      name: "Planner",
+      path: "/",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      ),
+    },
+    {
+      name: "Daily",
+      path: "/daily",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+      ),
+    },
+    {
+      name: "Pomodoro",
+      path: "/pomodoro",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      ),
+    },
+    {
+      name: "Progress",
+      path: "/progress",
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+        </svg>
+      ),
+    },
+  ];
+
   return (
-    <nav className="bg-white shadow-md p-4 dark:bg-gray-900">
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between">
-        <div className="mb-4 sm:mb-0 flex items-center">
-          <h1 className="text-xl font-bold text-primary flex items-center dark:text-primary-light">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+    <>
+      <Header />
+      
+      {/* Desktop Navigation - Horizontal Menu */}
+      <div className="hidden md:flex justify-center py-2 bg-white/80 dark:bg-black/10 backdrop-blur-md border-b border-gray-200/20 dark:border-white/10">
+        <div className="flex gap-1 bg-white/10 dark:bg-white/5 p-1 rounded-full">
+          {navigationItems.map((item) => (
+            <button
+              key={item.path}
+              onClick={() => {
+                navigate(item.path);
+                closeMenu();
+              }}
+              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors flex items-center gap-2 ${
+                isActive(item.path)
+                  ? "bg-white text-black dark:bg-white dark:text-black"
+                  : "text-gray-700 dark:text-white/60 hover:bg-white/10"
+              }`}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-              />
-            </svg>
-            Planner
-          </h1>
-          
-          {/* Dark Mode Toggle */}
-          <button 
-            onClick={toggleDarkMode}
-            className="ml-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-            aria-label="Toggle Dark Mode"
-          >
-            {isDark ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-              </svg>
-            )}
-          </button>
-        </div>
-        
-        <div className="flex bg-gray-100 rounded-lg p-1 dark:bg-gray-800">
-          <button
-            onClick={() => navigate("/")}
-            className={`px-4 py-2 rounded-md transition-colors ${
-              isActive("/")
-                ? "bg-primary text-white dark:bg-primary-dark"
-                : "text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-600"
-            }`}
-          >
-            <div className="flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 mr-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                />
-              </svg>
-              Planner
-            </div>
-          </button>
-          <button
-            onClick={() => navigate("/daily")}
-            className={`px-4 py-2 rounded-md transition-colors ${
-              isActive("/daily")
-                ? "bg-primary text-white dark:bg-primary-dark"
-                : "text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-600"
-            }`}
-          >
-            <div className="flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 mr-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-              Daily
-            </div>
-          </button>
-          <button
-            onClick={() => navigate("/pomodoro")}
-            className={`px-4 py-2 rounded-md transition-colors ${
-              isActive("/pomodoro")
-                ? "bg-primary text-white dark:bg-primary-dark"
-                : "text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-600"
-            }`}
-          >
-            <div className="flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 mr-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              Pomodoro
-            </div>
-          </button>
-          <button
-            onClick={() => navigate("/progress")}
-            className={`px-4 py-2 rounded-md transition-colors ${
-              isActive("/progress")
-                ? "bg-primary text-white dark:bg-primary-dark"
-                : "text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-600"
-            }`}
-          >
-            <div className="flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 mr-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                />
-              </svg>
-              Progress
-            </div>
-          </button>
+              <span className="hidden sm:block">{item.name}</span>
+            </button>
+          ))}
         </div>
       </div>
-    </nav>
+      
+      {/* Mobile Bottom Tab Bar */}
+      <div 
+        className={`md:hidden fixed bottom-0 inset-x-0 bg-white/80 dark:bg-black/50 backdrop-blur-lg border-t border-gray-200/20 dark:border-white/10 flex justify-around items-center h-16 z-50 transition-transform duration-300 ${
+          isVisible ? 'translate-y-0' : 'translate-y-full'
+        }`}
+      >
+        {navigationItems.map((item) => (
+          <button
+            key={item.path}
+            onClick={() => {
+              navigate(item.path);
+              closeMenu();
+            }}
+            className={`flex flex-col items-center justify-center px-3 py-2 rounded-full ${
+              isActive(item.path)
+                ? "text-primary dark:text-primary"
+                : "text-gray-700 dark:text-white/50 hover:text-primary dark:hover:text-primary"
+            }`}
+          >
+            <div className="mb-1">
+              {item.icon}
+            </div>
+            <span className="text-xs font-medium">{item.name}</span>
+          </button>
+        ))}
+      </div>
+    </>
   );
 }; 

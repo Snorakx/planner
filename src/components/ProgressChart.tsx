@@ -29,8 +29,8 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
 }) => {
   if (!data || data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-64 bg-gray-100 dark:bg-gray-800 rounded-lg">
-        <p className="text-gray-500 dark:text-gray-400">No data available</p>
+      <div className="flex items-center justify-center h-full">
+        <p className="text-white/70 dark:text-white/70">No data available</p>
       </div>
     );
   }
@@ -60,13 +60,13 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
   const getChartColor = () => {
     switch (dataType) {
       case 'tasks':
-        return '#4F46E5'; // Indigo
+        return '#5E9FFF'; // iOS blue
       case 'pomodoros':
-        return '#EF4444'; // Red
+        return '#FF5E5E'; // iOS red
       case 'focus':
-        return '#10B981'; // Green
+        return '#32D74B'; // iOS green
       default:
-        return '#4F46E5';
+        return '#5E9FFF';
     }
   };
 
@@ -86,74 +86,70 @@ export const ProgressChart: React.FC<ProgressChartProps> = ({
 
   const dataKey = dataType;
   const chartColor = getChartColor();
-  const dataLabel = getDataLabel();
+
+  // Custom tooltip for iOS style
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white text-black dark:bg-white dark:text-black rounded-xl p-3 shadow-lg">
+          <p className="text-xs font-medium mb-1">{label}</p>
+          <p className="text-sm font-semibold">{`${getDataLabel()}: ${payload[0].value}`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   // Render appropriate chart based on chartType
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm h-64">
-      <h3 className="text-lg font-medium mb-4 text-gray-800 dark:text-gray-200">{dataLabel}</h3>
-      <ResponsiveContainer width="100%" height="85%">
+    <div className="h-full w-full">
+      <ResponsiveContainer width="100%" height="100%">
         {chartType === 'line' ? (
-          <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.1} />
+          <LineChart data={chartData} margin={{ top: 10, right: 10, bottom: 5, left: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="white" opacity={0.1} />
             <XAxis 
               dataKey="date" 
-              tick={{ fill: '#6B7280' }} 
-              tickLine={{ stroke: '#6B7280' }}
+              tick={{ fill: 'white', opacity: 0.7, fontSize: 10 }} 
+              tickLine={{ stroke: 'white', opacity: 0.2 }}
+              axisLine={{ stroke: 'white', opacity: 0.2 }}
             />
             <YAxis 
-              tick={{ fill: '#6B7280' }} 
-              tickLine={{ stroke: '#6B7280' }}
-              width={30}
+              tick={{ fill: 'white', opacity: 0.7, fontSize: 10 }} 
+              tickLine={{ stroke: 'white', opacity: 0.2 }}
+              axisLine={{ stroke: 'white', opacity: 0.2 }}
+              width={25}
             />
-            <Tooltip 
-              contentStyle={{ 
-                backgroundColor: '#1F2937', 
-                border: 'none', 
-                borderRadius: '0.25rem',
-                color: '#F9FAFB'
-              }} 
-              itemStyle={{ color: '#F9FAFB' }}
-              labelStyle={{ color: '#F9FAFB', fontWeight: 'bold', marginBottom: '0.5rem' }}
-            />
-            <Legend />
+            <Tooltip content={<CustomTooltip />} />
             <Line 
               type="monotone" 
               dataKey={dataKey} 
               stroke={chartColor} 
-              strokeWidth={2}
-              dot={{ r: 4, strokeWidth: 2 }}
-              activeDot={{ r: 6 }}
+              strokeWidth={3}
+              dot={{ r: 4, fill: chartColor, strokeWidth: 0 }}
+              activeDot={{ r: 6, stroke: 'white', strokeWidth: 2, fill: chartColor }}
             />
           </LineChart>
         ) : (
-          <BarChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.1} />
+          <BarChart data={chartData} margin={{ top: 10, right: 10, bottom: 5, left: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="white" opacity={0.1} />
             <XAxis 
               dataKey="date" 
-              tick={{ fill: '#6B7280' }} 
-              tickLine={{ stroke: '#6B7280' }}
+              tick={{ fill: 'white', opacity: 0.7, fontSize: 10 }} 
+              tickLine={{ stroke: 'white', opacity: 0.2 }}
+              axisLine={{ stroke: 'white', opacity: 0.2 }}
             />
             <YAxis 
-              tick={{ fill: '#6B7280' }} 
-              tickLine={{ stroke: '#6B7280' }}
-              width={30}
+              tick={{ fill: 'white', opacity: 0.7, fontSize: 10 }} 
+              tickLine={{ stroke: 'white', opacity: 0.2 }}
+              axisLine={{ stroke: 'white', opacity: 0.2 }}
+              width={25}
             />
-            <Tooltip 
-              contentStyle={{ 
-                backgroundColor: '#1F2937', 
-                border: 'none', 
-                borderRadius: '0.25rem',
-                color: '#F9FAFB'
-              }} 
-              itemStyle={{ color: '#F9FAFB' }}
-              labelStyle={{ color: '#F9FAFB', fontWeight: 'bold', marginBottom: '0.5rem' }}
-            />
-            <Legend />
+            <Tooltip content={<CustomTooltip />} />
             <Bar 
               dataKey={dataKey} 
               fill={chartColor} 
               radius={[4, 4, 0, 0]}
+              opacity={0.9}
             />
           </BarChart>
         )}

@@ -30,12 +30,12 @@ export const AddRewardForm: React.FC<AddRewardFormProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <h2 className="text-xl font-bold mb-4">Create New Reward</h2>
+    <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-lg p-6 border border-gray-200/50 dark:border-gray-700/30">
+      <h2 className="text-xl font-semibold mb-5 text-gray-900 dark:text-white">Create New Reward</h2>
       
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+        <div className="mb-5">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Reward Name *
           </label>
           <input
@@ -43,28 +43,28 @@ export const AddRewardForm: React.FC<AddRewardFormProps> = ({
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full p-2.5 bg-white/80 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary/70 text-gray-900 dark:text-white"
             placeholder="e.g., Coffee Break, Movie Night"
             required
           />
         </div>
         
-        <div className="mb-4">
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+        <div className="mb-5">
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Description
           </label>
           <textarea
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full p-2.5 bg-white/80 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary/70 text-gray-900 dark:text-white"
             placeholder="Describe your reward"
             rows={3}
           />
         </div>
         
         <div className="mb-6">
-          <label htmlFor="requiredSessions" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="requiredSessions" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Required Focus Sessions *
           </label>
           <input
@@ -72,26 +72,26 @@ export const AddRewardForm: React.FC<AddRewardFormProps> = ({
             id="requiredSessions"
             value={requiredSessions}
             onChange={(e) => setRequiredSessions(parseInt(e.target.value))}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full p-2.5 bg-white/80 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary/70 text-gray-900 dark:text-white"
             min="1"
             required
           />
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Number of completed focus sessions needed to unlock this reward
           </p>
         </div>
         
-        <div className="flex justify-end space-x-2">
+        <div className="flex justify-end space-x-3">
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+            className="px-5 py-2.5 border border-gray-300 dark:border-gray-600 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-opacity-90"
+            className="px-5 py-2.5 bg-primary text-white rounded-full hover:bg-opacity-90 transition-colors font-medium"
           >
             Create Reward
           </button>

@@ -145,10 +145,10 @@ export const Pomodoro: React.FC = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <header className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Pomodoro Timer</h1>
-        <p className="text-gray-600">
+    <div className="max-w-6xl mx-auto px-4 py-6">
+      <header className="mb-8">
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-4">Pomodoro Timer</h1>
+        <p className="text-gray-600 dark:text-gray-300 tracking-wide">
           Use the Pomodoro Technique to enhance focus and productivity. 
           Complete focus sessions to unlock rewards!
         </p>
@@ -156,8 +156,7 @@ export const Pomodoro: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 className="text-xl font-bold mb-4">Focus Timer</h2>
+          <div className="mb-8">
             <PomodoroTimer
               onComplete={handleCompleteSession}
               onStart={handleStartSession}
@@ -166,24 +165,24 @@ export const Pomodoro: React.FC = () => {
             />
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="bg-white/80 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl shadow-md p-6 border border-gray-200/50 dark:border-gray-700/30">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold">Your Progress</h2>
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Your Progress</h2>
               <div className="flex items-center">
-                <span className="mr-2 text-gray-700">
-                  <span className="font-bold text-primary">{completedSessionsCount}</span> Sessions Completed
+                <span className="text-gray-700 dark:text-gray-300 font-medium">
+                  <span className="font-bold text-primary dark:text-primary">{completedSessionsCount}</span> Sessions Completed
                 </span>
               </div>
             </div>
             
             <div className="mb-4">
-              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                 <div 
                   className="h-full bg-primary" 
                   style={{ width: `${Math.min(completedSessionsCount * 4, 100)}%` }}
                 ></div>
               </div>
-              <div className="flex justify-between mt-1 text-xs text-gray-500">
+              <div className="flex justify-between mt-1 text-xs text-gray-500 dark:text-gray-400">
                 <span>0</span>
                 <span>5</span>
                 <span>10</span>
@@ -205,7 +204,7 @@ export const Pomodoro: React.FC = () => {
               {Array.from({ length: Math.max(0, 25 - completedSessionsCount) }).map((_, i) => (
                 <div 
                   key={i + completedSessionsCount} 
-                  className="w-6 h-6 rounded-full bg-gray-200"
+                  className="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700"
                 ></div>
               ))}
             </div>
@@ -213,19 +212,19 @@ export const Pomodoro: React.FC = () => {
         </div>
 
         <div>
-          <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <div className="bg-white/80 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl shadow-md p-6 mb-6 border border-gray-200/50 dark:border-gray-700/30">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold">Rewards</h2>
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Rewards</h2>
               <button
                 onClick={() => setIsRewardFormOpen(true)}
-                className="px-3 py-1 bg-primary text-white rounded-md hover:bg-opacity-90 transition-colors text-sm"
+                className="px-3 py-1 bg-primary text-white rounded-full hover:bg-opacity-90 transition-colors text-sm font-medium"
               >
                 Add Reward
               </button>
             </div>
             
             {isRewardFormOpen && (
-              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+              <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
                 <div className="max-w-lg w-full">
                   <AddRewardForm
                     onSubmit={handleCreateReward}
@@ -237,7 +236,7 @@ export const Pomodoro: React.FC = () => {
             
             {unlockedRewards.length > 0 && (
               <div className="mb-4">
-                <h3 className="text-lg font-semibold mb-2 text-green-700">Unlocked</h3>
+                <h3 className="text-lg font-medium mb-3 text-green-600 dark:text-green-400">Unlocked</h3>
                 {unlockedRewards.map(reward => (
                   <RewardCard
                     key={reward.id}

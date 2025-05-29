@@ -98,9 +98,9 @@ export const Progress: React.FC = () => {
   };
   
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 md:mb-0">Progress & Insights</h1>
+    <div className="max-w-2xl mx-auto p-4 md:p-8 space-y-6">
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <h1 className="text-xl md:text-2xl font-semibold tracking-wide text-neutral-900 dark:text-white">Progress & Insights</h1>
         
         <div className="flex flex-wrap gap-2">
           {/* Date Range Filter */}
@@ -109,7 +109,7 @@ export const Progress: React.FC = () => {
                   dateRange.startDate === getDateDaysAgo(30) ? '30days' :
                   dateRange.startDate === getDateDaysAgo(90) ? '90days' : 'all'}
             onChange={handleDateRangeChange}
-            className="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 text-sm"
+            className="bg-white/80 dark:bg-white/5 backdrop-blur-md border border-white/10 rounded-xl px-3 py-2 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-white/20"
           >
             <option value="7days">Last 7 days</option>
             <option value="30days">Last 30 days</option>
@@ -117,177 +117,212 @@ export const Progress: React.FC = () => {
             <option value="all">All time</option>
           </select>
           
-          {/* Chart Type Toggle */}
-          <div className="inline-flex rounded-md shadow-sm">
-            <button
-              type="button"
-              onClick={() => setChartType('line')}
-              className={`px-3 py-2 text-sm font-medium rounded-l-md border ${
-                chartType === 'line'
-                  ? 'bg-primary text-white border-primary'
-                  : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600'
-              }`}
-            >
-              Line
-            </button>
-            <button
-              type="button"
-              onClick={() => setChartType('bar')}
-              className={`px-3 py-2 text-sm font-medium rounded-r-md border ${
-                chartType === 'bar'
-                  ? 'bg-primary text-white border-primary'
-                  : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600'
-              }`}
-            >
-              Bar
-            </button>
-          </div>
-          
-          {/* Time Frame Toggle */}
-          <div className="inline-flex rounded-md shadow-sm">
-            <button
-              type="button"
-              onClick={() => setTimeFrame('daily')}
-              className={`px-3 py-2 text-sm font-medium rounded-l-md border ${
-                timeFrame === 'daily'
-                  ? 'bg-primary text-white border-primary'
-                  : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600'
-              }`}
-            >
-              Daily
-            </button>
-            <button
-              type="button"
-              onClick={() => setTimeFrame('weekly')}
-              className={`px-3 py-2 text-sm font-medium rounded-r-md border ${
-                timeFrame === 'weekly'
-                  ? 'bg-primary text-white border-primary'
-                  : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600'
-              }`}
-            >
-              Weekly
-            </button>
-          </div>
+          {/* Generate Sample Data Button */}
+          <button
+            onClick={handleGenerateSampleData}
+            className="text-white/70 hover:bg-white/10 rounded-xl px-3 py-2 text-sm transition-colors backdrop-blur-md"
+          >
+            Generate Sample Data
+          </button>
         </div>
-      </div>
+      </header>
       
       {loading ? (
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary"></div>
+          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-white"></div>
         </div>
       ) : (
         <>
-          {stats ? (
-            <>
-              {/* Stats Summary */}
-              <div className="mb-8">
-                <StatsSummary stats={stats} />
+          {stats && (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {/* Tasks Card */}
+              <div className="rounded-2xl p-4 bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-inner border border-white/10 flex flex-col gap-1">
+                <span className="text-3xl font-semibold text-white dark:text-white">
+                  {stats.weeklyData.reduce((sum, week) => sum + week.totalTasksCompleted, 0)}
+                </span>
+                <span className="text-sm text-white/60 dark:text-white/50">Tasks Done</span>
               </div>
               
-              {/* Chart Section */}
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-8">
-                <div className="mb-6">
-                  <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Progress Visualization</h2>
-                  
-                  {/* Data Type Tabs */}
-                  <div className="flex border-b border-gray-200 dark:border-gray-700">
-                    <button
-                      onClick={() => setDataType('tasks')}
-                      className={`py-2 px-4 text-sm font-medium ${
-                        dataType === 'tasks'
-                          ? 'text-primary border-b-2 border-primary'
-                          : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-                      }`}
-                    >
-                      Tasks
-                    </button>
-                    <button
-                      onClick={() => setDataType('pomodoros')}
-                      className={`py-2 px-4 text-sm font-medium ${
-                        dataType === 'pomodoros'
-                          ? 'text-primary border-b-2 border-primary'
-                          : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-                      }`}
-                    >
-                      Pomodoros
-                    </button>
-                    <button
-                      onClick={() => setDataType('focus')}
-                      className={`py-2 px-4 text-sm font-medium ${
-                        dataType === 'focus'
-                          ? 'text-primary border-b-2 border-primary'
-                          : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-                      }`}
-                    >
-                      Focus Time
-                    </button>
-                  </div>
-                </div>
-                
-                {chartData.length > 0 ? (
-                  <div className="h-80">
-                    <ProgressChart
-                      data={chartData}
-                      chartType={chartType}
-                      timeFrame={timeFrame}
-                      dataType={dataType}
-                    />
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center h-64 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                    <div className="text-center">
-                      <p className="text-gray-500 dark:text-gray-400 mb-2">No data available for the selected period</p>
-                      <p className="text-sm text-gray-400 dark:text-gray-500">Complete tasks or focus sessions to see your progress</p>
-                    </div>
-                  </div>
-                )}
+              {/* Pomodoros Card */}
+              <div className="rounded-2xl p-4 bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-inner border border-white/10 flex flex-col gap-1">
+                <span className="text-3xl font-semibold text-white dark:text-white">
+                  {stats.weeklyData.reduce((sum, week) => sum + week.totalPomodoroSessions, 0)}
+                </span>
+                <span className="text-sm text-white/60 dark:text-white/50">Pomodoros</span>
               </div>
               
-              {/* Tips and Insights */}
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-                <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Productivity Tips</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                    <h3 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Time Blocking</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Dedicate specific time blocks for focused work. This creates structure and reduces decision fatigue.</p>
-                  </div>
-                  <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                    <h3 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Body Doubling</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Work alongside someone else (in person or virtually) to increase accountability and focus.</p>
-                  </div>
-                  <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                    <h3 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Task Breakdown</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Break large tasks into smaller, manageable subtasks to reduce overwhelm and make progress visible.</p>
-                  </div>
-                  <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                    <h3 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Environment Design</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Create a workspace that minimizes distractions and has visual cues for current priorities.</p>
-                  </div>
-                </div>
+              {/* Streak Card */}
+              <div className="rounded-2xl p-4 bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-inner border border-white/10 flex flex-col gap-1">
+                <span className="text-3xl font-semibold text-white dark:text-white">
+                  {stats.streak.currentStreak}
+                </span>
+                <span className="text-sm text-white/60 dark:text-white/50">Day Streak</span>
               </div>
-            </>
-          ) : (
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 text-center">
-              <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">No Progress Data Yet</h2>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
-                Start completing tasks, using the Pomodoro timer, or Focus Mode to track your progress.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <button
-                  onClick={() => window.location.href = '/'}
-                  className="px-4 py-2 bg-primary text-white rounded-md hover:bg-opacity-90"
-                >
-                  Go to Planner
-                </button>
-                <button
-                  onClick={handleGenerateSampleData}
-                  className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-opacity-90"
-                >
-                  Generate Sample Data
-                </button>
+              
+              {/* Focus Time Card */}
+              <div className="rounded-2xl p-4 bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-inner border border-white/10 flex flex-col gap-1">
+                <span className="text-3xl font-semibold text-white dark:text-white">
+                  {stats.averageFocusTime >= 60 
+                    ? `${Math.floor(stats.averageFocusTime / 60)}h` 
+                    : `${stats.averageFocusTime}m`}
+                </span>
+                <span className="text-sm text-white/60 dark:text-white/50">Avg. Focus</span>
               </div>
             </div>
           )}
+          
+          {/* Chart Section */}
+          <div className="rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-inner border border-white/10 p-6">
+            <div className="mb-6">
+              <h2 className="text-lg font-semibold text-white dark:text-white mb-4">Visualization</h2>
+              
+              {/* Chart Type & Time Frame Controls */}
+              <div className="flex space-x-2 mb-4">
+                <div className="flex bg-white/5 dark:bg-white/10 p-1 rounded-full">
+                  <button
+                    onClick={() => setChartType('line')}
+                    className={`px-4 py-1 rounded-full text-sm font-medium transition-colors ${
+                      chartType === 'line'
+                        ? "bg-white text-black dark:bg-white dark:text-black"
+                        : "text-white/60 hover:bg-white/10"
+                    }`}
+                  >
+                    Line
+                  </button>
+                  <button
+                    onClick={() => setChartType('bar')}
+                    className={`px-4 py-1 rounded-full text-sm font-medium transition-colors ${
+                      chartType === 'bar'
+                        ? "bg-white text-black dark:bg-white dark:text-black"
+                        : "text-white/60 hover:bg-white/10"
+                    }`}
+                  >
+                    Bar
+                  </button>
+                </div>
+                
+                <div className="flex bg-white/5 dark:bg-white/10 p-1 rounded-full">
+                  <button
+                    onClick={() => setTimeFrame('daily')}
+                    className={`px-4 py-1 rounded-full text-sm font-medium transition-colors ${
+                      timeFrame === 'daily'
+                        ? "bg-white text-black dark:bg-white dark:text-black"
+                        : "text-white/60 hover:bg-white/10"
+                    }`}
+                  >
+                    Daily
+                  </button>
+                  <button
+                    onClick={() => setTimeFrame('weekly')}
+                    className={`px-4 py-1 rounded-full text-sm font-medium transition-colors ${
+                      timeFrame === 'weekly'
+                        ? "bg-white text-black dark:bg-white dark:text-black"
+                        : "text-white/60 hover:bg-white/10"
+                    }`}
+                  >
+                    Weekly
+                  </button>
+                </div>
+              </div>
+              
+              {/* Data Type Tabs */}
+              <div className="flex space-x-2 mb-2">
+                <button
+                  onClick={() => setDataType('tasks')}
+                  className={`px-4 py-1 rounded-full text-sm font-medium transition-colors ${
+                    dataType === 'tasks'
+                      ? "bg-primary text-white dark:bg-primary dark:text-white"
+                      : "text-white/60 hover:bg-white/10"
+                  }`}
+                >
+                  Tasks
+                </button>
+                <button
+                  onClick={() => setDataType('pomodoros')}
+                  className={`px-4 py-1 rounded-full text-sm font-medium transition-colors ${
+                    dataType === 'pomodoros'
+                      ? "bg-primary text-white dark:bg-primary dark:text-white"
+                      : "text-white/60 hover:bg-white/10"
+                  }`}
+                >
+                  Pomodoros
+                </button>
+                <button
+                  onClick={() => setDataType('focus')}
+                  className={`px-4 py-1 rounded-full text-sm font-medium transition-colors ${
+                    dataType === 'focus'
+                      ? "bg-primary text-white dark:bg-primary dark:text-white"
+                      : "text-white/60 hover:bg-white/10"
+                  }`}
+                >
+                  Focus Time
+                </button>
+              </div>
+            </div>
+            
+            {chartData.length > 0 ? (
+              <div className="relative h-[200px] w-full rounded-xl bg-white/5 dark:bg-white/10 p-2">
+                <ProgressChart
+                  data={chartData}
+                  chartType={chartType}
+                  timeFrame={timeFrame}
+                  dataType={dataType}
+                />
+              </div>
+            ) : (
+              <div className="flex items-center justify-center h-64 rounded-xl bg-white/5 dark:bg-white/10">
+                <div className="text-center">
+                  <p className="text-white/70 dark:text-white/70 mb-2">No data available for the selected period</p>
+                  <p className="text-sm text-white/50 dark:text-white/50">Complete tasks or focus sessions to see your progress</p>
+                </div>
+              </div>
+            )}
+          </div>
+          
+          {/* Weekly Summary */}
+          {stats && stats.weeklyData.length > 0 && (
+            <div className="rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-inner border border-white/10 p-6">
+              <h2 className="text-lg font-semibold text-white dark:text-white mb-4">Weekly Progress</h2>
+              
+              <div className="mt-4 space-y-4">
+                {stats.weeklyData.slice(0, 4).map((week, index) => (
+                  <div key={week.weekStart} className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-white/70 dark:text-white/70">{week.weekStart} to {week.weekEnd}</span>
+                      <span className="text-sm font-medium text-white dark:text-white">
+                        {week.totalTasksCompleted} tasks
+                      </span>
+                    </div>
+                    <div className="h-3 w-full rounded-full bg-white/10 overflow-hidden">
+                      <div 
+                        className="h-full bg-green-400 transition-all" 
+                        style={{ width: `${Math.min(week.totalTasksCompleted * 5, 100)}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Productivity Tips */}
+          <div className="rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-md shadow-inner border border-white/10 p-6">
+            <h2 className="text-lg font-semibold text-white dark:text-white mb-4">Productivity Tips</h2>
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <h3 className="font-medium text-white dark:text-white">Time Blocking</h3>
+                <p className="text-sm text-white/70 dark:text-white/70">Dedicate specific time blocks for focused work. This creates structure and reduces decision fatigue.</p>
+              </div>
+              <div className="space-y-1">
+                <h3 className="font-medium text-white dark:text-white">Body Doubling</h3>
+                <p className="text-sm text-white/70 dark:text-white/70">Work alongside someone else (in person or virtually) to increase accountability and focus.</p>
+              </div>
+              <div className="space-y-1">
+                <h3 className="font-medium text-white dark:text-white">Task Breakdown</h3>
+                <p className="text-sm text-white/70 dark:text-white/70">Break large tasks into smaller, manageable subtasks to reduce overwhelm and make progress visible.</p>
+              </div>
+            </div>
+          </div>
         </>
       )}
     </div>

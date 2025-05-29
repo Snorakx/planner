@@ -16,9 +16,9 @@ export const App: React.FC = () => {
         <Route
           path="/pomodoro"
           element={
-            <div className="min-h-screen bg-background dark:bg-gray-950 dark:bg-gradient-to-b dark:from-gray-950 dark:to-black">
+            <div className="min-h-screen bg-background dark:bg-gray-950 dark:bg-gradient-to-b dark:from-gray-950 dark:to-black pb-16 md:pb-0">
               <Navigation />
-              <div className="container mx-auto px-4 py-6">
+              <div className="container mx-auto px-4 py-4">
                 <Pomodoro />
               </div>
             </div>
@@ -27,9 +27,9 @@ export const App: React.FC = () => {
         <Route
           path="/progress"
           element={
-            <div className="min-h-screen bg-background dark:bg-gray-950 dark:bg-gradient-to-b dark:from-gray-950 dark:to-black">
+            <div className="min-h-screen bg-background dark:bg-gray-950 dark:bg-gradient-to-b dark:from-gray-950 dark:to-black pb-16 md:pb-0">
               <Navigation />
-              <div className="container mx-auto px-4 py-6">
+              <div className="container mx-auto px-4 py-4">
                 <Progress />
               </div>
             </div>
@@ -38,9 +38,9 @@ export const App: React.FC = () => {
         <Route
           path="/daily"
           element={
-            <div className="min-h-screen bg-background dark:bg-gray-950 dark:bg-gradient-to-b dark:from-gray-950 dark:to-black">
+            <div className="min-h-screen bg-background dark:bg-gray-950 dark:bg-gradient-to-b dark:from-gray-950 dark:to-black pb-16 md:pb-0">
               <Navigation />
-              <div className="container mx-auto px-4 py-6">
+              <div className="container mx-auto px-4 py-4">
                 <DailyView />
               </div>
             </div>
@@ -49,9 +49,9 @@ export const App: React.FC = () => {
         <Route
           path="/*"
           element={
-            <div className="min-h-screen bg-background dark:bg-gray-950 dark:bg-gradient-to-b dark:from-gray-950 dark:to-black">
+            <div className="min-h-screen bg-background dark:bg-gray-950 dark:bg-gradient-to-b dark:from-gray-950 dark:to-black pb-16 md:pb-0">
               <Navigation />
-              <div className="container mx-auto px-4 py-6">
+              <div className="container mx-auto px-4 py-4">
                 <Planner />
               </div>
             </div>
