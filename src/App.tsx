@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Navigation } from './components/Navigation';
+import { Navigation } from './components/Common/Navigation';
+import { CodernoSignature } from './components/Common/CodernoSignature';
 import { Planner } from './pages/Planner';
 import { Pomodoro } from './pages/Pomodoro';
 import { FocusMode } from './pages/FocusMode';
@@ -58,6 +59,9 @@ export const App: React.FC = () => {
           }
         />
       </Routes>
+      
+      {/* Global Coderno Signature - appears on all pages */}
+      <CodernoSignature />
     </BrowserRouter>
   );
 }; 

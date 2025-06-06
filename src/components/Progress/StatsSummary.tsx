@@ -1,6 +1,6 @@
 import React from 'react';
-import { ProgressStats } from '../types/Progress';
-import { formatDate } from '../utils/dateUtils';
+import { ProgressStats } from '../../types/Progress';
+import { formatDate } from '../../utils/dateUtils';
 
 interface StatsSummaryProps {
   stats: ProgressStats;

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
-import { CombinedBlock, DailyRoutine, TimeSlot } from '../types/DailyRoutine';
+import { CombinedBlock, DailyRoutine, TimeSlot } from '../../types/DailyRoutine';
 import RoutineBlock from './RoutineBlock';
-import { Task } from '../types/Task';
+import { Task } from '../../types/Task';
 
 interface DailyTimelineProps {
   timeSlots: TimeSlot[];

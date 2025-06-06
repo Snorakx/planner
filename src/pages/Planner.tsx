@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { TaskCard } from "../components/TaskCard";
-import { TaskForm } from "../components/TaskForm";
-import { EditTaskModal } from "../components/EditTaskModal";
-import { DeleteConfirmationModal } from "../components/DeleteConfirmationModal";
-import { TaskList } from "../components/TaskList";
+import { TaskCard } from "../components/Planner/TaskCard";
+import { TaskForm } from "../components/Planner/TaskForm";
+import { EditTaskModal } from "../components/Planner/EditTaskModal";
+import { DeleteConfirmationModal } from "../components/Common/DeleteConfirmationModal";
+import { TaskList } from "../components/Planner/TaskList";
 import { TaskService } from "../services/TaskService";
 import { ProgressService } from "../services/ProgressService";
 import { Task } from "../types/Task";

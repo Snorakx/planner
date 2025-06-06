@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Task, Subtask } from "../types/Task";
+import { Task, Subtask } from "../../types/Task";
 
 interface TaskFormProps {
   onSubmit: (task: Partial<Task>) => void;

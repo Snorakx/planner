@@ -1,5 +1,5 @@
 import React from 'react';
-import { DailyRoutine } from '../types/DailyRoutine';
+import { DailyRoutine } from '../../types/DailyRoutine';
 
 interface RoutineBlockProps {
   routine: DailyRoutine;

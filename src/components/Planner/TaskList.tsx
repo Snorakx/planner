@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Task } from "../types/Task";
+import { Task } from "../../types/Task";
 import { DraggableTaskCard } from "./DraggableTaskCard";
-import { useDragAndDropContext } from "../utils/ui/DragAndDropContext";
-import { useDragAndDrop } from "../utils/ui/useDragAndDrop";
+import { useDragAndDropContext } from "../../utils/ui/DragAndDropContext";
+import { useDragAndDrop } from "../../utils/ui/useDragAndDrop";
 
 interface TaskListProps {
   tasks: Task[];

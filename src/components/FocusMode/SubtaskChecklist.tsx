@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Task } from "../types/Task";
+import { Task } from "../../types/Task";
 
 interface SubtaskChecklistProps {
   task: Task;

@@ -11,8 +11,8 @@ import {
   Tooltip, 
   Legend 
 } from 'recharts';
-import { ProgressData, WeeklySummary } from '../types/Progress';
-import { formatDate } from '../utils/dateUtils';
+import { ProgressData, WeeklySummary } from '../../types/Progress';
+import { formatDate } from '../../utils/dateUtils';
 
 interface ProgressChartProps {
   data: ProgressData[] | WeeklySummary[];

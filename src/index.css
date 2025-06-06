@@ -143,4 +143,9 @@ code {
 
 .ios-button:active {
   transform: scale(0.97);
-} 
+}
+
+/* Montserrat font classes */
+.font-montserrat {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}

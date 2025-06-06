@@ -13,15 +13,32 @@
 
 ```
 src/
-├── components/            # Komponenty UI
-│   ├── DraggableTaskCard.tsx  # Wrapper dla TaskCard z obsługą drag & drop
-│   ├── Header.tsx         # Nagłówek aplikacji z przełącznikiem trybu ciemnego
-│   ├── Navigation.tsx     # System nawigacji z desktopowym menu i dolnym paskiem na mobile
-│   ├── TaskCard.tsx       # Karta zadania
-│   ├── TaskForm.tsx       # Formularz dodawania zadania
-│   ├── TaskList.tsx       # Lista zadań z obsługą sortowania
-│   ├── EditTaskModal.tsx  # Modal edycji zadania
-│   └── DeleteConfirmationModal.tsx  # Modal potwierdzenia usunięcia
+├── components/            # Komponenty UI (organizacja per-view)
+│   ├── Common/           # Komponenty wspólne używane w wielu widokach
+│   │   ├── Header.tsx         # Nagłówek aplikacji z przełącznikiem trybu ciemnego
+│   │   ├── Navigation.tsx     # System nawigacji z desktopowym menu i dolnym paskiem na mobile
+│   │   └── DeleteConfirmationModal.tsx  # Modal potwierdzenia usunięcia
+│   ├── Planner/          # Komponenty specyficzne dla widoku Planner
+│   │   ├── TaskCard.tsx       # Karta zadania
+│   │   ├── TaskForm.tsx       # Formularz dodawania zadania
+│   │   ├── TaskList.tsx       # Lista zadań z obsługą sortowania
+│   │   ├── EditTaskModal.tsx  # Modal edycji zadania
+│   │   └── DraggableTaskCard.tsx  # Wrapper dla TaskCard z obsługą drag & drop
+│   ├── Progress/         # Komponenty dla widoku Progress
+│   │   ├── ProgressChart.tsx  # Wykres postępów
+│   │   └── StatsSummary.tsx   # Podsumowanie statystyk
+│   ├── Pomodoro/         # Komponenty dla widoku Pomodoro
+│   │   ├── PomodoroTimer.tsx  # Timer Pomodoro
+│   │   ├── RewardCard.tsx     # Karta nagrody
+│   │   └── AddRewardForm.tsx  # Formularz dodawania nagrody
+│   ├── FocusMode/        # Komponenty dla trybu skupienia
+│   │   ├── FocusTaskView.tsx  # Widok zadania w trybie skupienia
+│   │   ├── SubtaskChecklist.tsx # Lista podzadań
+│   │   └── FocusTimer.tsx     # Timer trybu skupienia
+│   └── DailyView/        # Komponenty dla widoku dziennego
+│       ├── DailyTimeline.tsx  # Oś czasu dnia
+│       ├── RoutineForm.tsx    # Formularz rutyny
+│       └── RoutineBlock.tsx   # Blok rutyny
 ├── pages/                 # Widoki/strony
 │   ├── Planner.tsx        # Główny widok planera
 │   ├── DailyView.tsx      # Widok zarządzania codziennymi zadaniami
@@ -57,15 +74,37 @@ src/
 Aplikacja została zaprojektowana zgodnie z wzorcami:
 
 1. **Architektura warstwowa**:
-   - **Komponenty UI** - prezentacja danych
-   - **Usługi** - logika biznesowa
-   - **Repozytoria** - dostęp do danych
+   - **View UI** - prezentacja danych
+   - **Services** - logika biznesowa
+   - **Repositories** - dostęp do danych
 
 2. **Singleton** - używany w serwisach do zapewnienia jednej instancji
 
 3. **Flux-podobny przepływ danych** - jednokierunkowy przepływ danych od komponentów nadrzędnych do podrzędnych
 
 ## Zasady tworzenia komponentów
+
+### 0. Organizacja per-view
+
+Komponenty są organizowane według widoków (pages) w których są używane:
+
+- **`components/Common/`** - komponenty używane w wielu widokach lub przez główny komponent aplikacji (App.tsx)
+- **`components/[ViewName]/`** - komponenty specyficzne dla konkretnego widoku:
+  - `Planner/` - komponenty dla głównego widoku planera
+  - `Progress/` - komponenty dla widoku statystyk i postępów  
+  - `Pomodoro/` - komponenty dla timera Pomodoro
+  - `FocusMode/` - komponenty dla trybu skupienia
+  - `DailyView/` - komponenty dla zarządzania rytmem dnia
+
+**Importy**: Przy korzystaniu z komponentów używaj pełnych ścieżek:
+```tsx
+// Komponenty Common
+import { Navigation } from '../components/Common/Navigation';
+
+// Komponenty per-view  
+import { TaskCard } from '../components/Planner/TaskCard';
+import { ProgressChart } from '../components/Progress/ProgressChart';
+```
 
 ### 1. Komponenty funkcyjne z TypeScript
 
@@ -143,9 +182,10 @@ interface TaskCardProps {
 
 ### Komponenty UI
 
-#### TaskCard
+#### Komponenty Planner
 
 ```tsx
+// TaskCard z components/Planner/
 <TaskCard
   task={task}
   onToggleSubtask={handleToggleSubtask}
@@ -154,11 +194,8 @@ interface TaskCardProps {
   onEditTask={handleEditTask}
   onDeleteTask={handleDeleteTask}
 />
-```
 
-#### DraggableTaskCard
-
-```tsx
+// DraggableTaskCard z components/Planner/
 <DraggableTaskCard
   task={task}
   index={index}
@@ -173,11 +210,8 @@ interface TaskCardProps {
   onDragOver={handleDragOver}
   onDrop={handleDrop}
 />
-```
 
-#### TaskList
-
-```tsx
+// TaskList z components/Planner/
 <TaskList
   tasks={tasks}
   onReorderTasks={handleReorderTasks}
@@ -187,11 +221,8 @@ interface TaskCardProps {
   onEditTask={handleEditTask}
   onDeleteTask={handleDeleteTask}
 />
-```
 
-#### EditTaskModal
-
-```tsx
+// EditTaskModal z components/Planner/
 <EditTaskModal
   task={editTask}
   onSave={handleUpdateTask}
@@ -200,14 +231,33 @@ interface TaskCardProps {
 />
 ```
 
-#### DeleteConfirmationModal
+#### Komponenty Common
 
 ```tsx
+// DeleteConfirmationModal z components/Common/
 <DeleteConfirmationModal
   task={deleteTask}
   onConfirm={handleConfirmDelete}
   onCancel={() => setDeleteTask(null)}
   isOpen={!!deleteTask}
+/>
+```
+
+#### Komponenty Progress
+
+```tsx
+// ProgressChart z components/Progress/
+<ProgressChart
+  data={chartData}
+  type={chartType}
+  dataType={dataType}
+  timeFrame={timeFrame}
+/>
+
+// StatsSummary z components/Progress/
+<StatsSummary
+  stats={stats}
+  dateRange={dateRange}
 />
 ```
 

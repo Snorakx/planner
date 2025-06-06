@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { DailyRoutine } from '../types/DailyRoutine';
 import { Task } from '../types/Task';
-import DailyTimeline from '../components/DailyTimeline';
-import RoutineForm from '../components/RoutineForm';
+import DailyTimeline from '../components/DailyView/DailyTimeline';
+import RoutineForm from '../components/DailyView/RoutineForm';
 import { DailyStructureService } from '../services/DailyStructureService';
 import { DailyRoutineRepository } from '../repositories/DailyRoutineRepository';
 

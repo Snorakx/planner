@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PomodoroTimer } from "../components/PomodoroTimer";
-import { RewardCard } from "../components/RewardCard";
-import { AddRewardForm } from "../components/AddRewardForm";
+import { PomodoroTimer } from "../components/Pomodoro/PomodoroTimer";
+import { RewardCard } from "../components/Pomodoro/RewardCard";
+import { AddRewardForm } from "../components/Pomodoro/AddRewardForm";
 import { PomodoroService } from "../services/PomodoroService";
 import { RewardService } from "../services/RewardService";
 import { TaskService } from "../services/TaskService";

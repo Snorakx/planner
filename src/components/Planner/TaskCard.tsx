@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Task } from "../types/Task";
+import { Task } from "../../types/Task";
 
 interface TaskCardProps {
   task: Task;

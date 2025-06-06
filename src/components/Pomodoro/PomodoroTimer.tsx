@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { PomodoroSession } from "../types/Pomodoro";
-import { Task } from "../types/Task";
+import { PomodoroSession } from "../../types/Pomodoro";
+import { Task } from "../../types/Task";
 
 interface PomodoroTimerProps {
   onComplete: (session: PomodoroSession) => void;

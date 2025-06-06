@@ -1,6 +1,6 @@
 import React from "react";
 import { TaskCard } from "./TaskCard";
-import { Task } from "../types/Task";
+import { Task } from "../../types/Task";
 
 interface DraggableTaskCardProps extends React.HTMLAttributes<HTMLDivElement> {
   task: Task;

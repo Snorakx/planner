@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { FocusTaskView } from "../components/FocusTaskView";
-import { SubtaskChecklist } from "../components/SubtaskChecklist";
-import { FocusTimer } from "../components/FocusTimer";
+import { FocusTaskView } from "../components/FocusMode/FocusTaskView";
+import { SubtaskChecklist } from "../components/FocusMode/SubtaskChecklist";
+import { FocusTimer } from "../components/FocusMode/FocusTimer";
 import { FocusService } from "../services/FocusService";
 import { ProgressService } from "../services/ProgressService";
 import { Task } from "../types/Task";

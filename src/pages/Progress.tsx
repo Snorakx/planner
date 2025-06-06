@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ProgressChart } from '../components/ProgressChart';
-import { StatsSummary } from '../components/StatsSummary';
+import { ProgressChart } from '../components/Progress/ProgressChart';
+import { StatsSummary } from '../components/Progress/StatsSummary';
 import { ProgressService } from '../services/ProgressService';
 import { DateRangeFilter, ProgressData, ProgressStats, WeeklySummary } from '../types/Progress';
 import { getDateDaysAgo } from '../utils/dateUtils';

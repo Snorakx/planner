@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DailyRoutine } from '../types/DailyRoutine';
+import { DailyRoutine } from '../../types/DailyRoutine';
 import { v4 as uuidv4 } from 'uuid';
 
 interface RoutineFormProps {
